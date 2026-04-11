@@ -16,7 +16,6 @@ A full-stack Airbnb-inspired web application where users can discover, list, and
 - 🎨 **Templating** — EJS with ejs-mate for layout inheritance
 
 ---
-<img width="1200" height="12000" alt="image" src="https://github.com/user-attachments/assets/8927bb8f-5ca7-4dff-8f5c-d23d6d7cbffc" />
 
 ## 🛠️ Tech Stack
 
@@ -34,6 +33,7 @@ A full-stack Airbnb-inspired web application where users can discover, list, and
 ---
 
 ## 📁 Project Structure
+<img width="1913" height="925" alt="image" src="https://github.com/user-attachments/assets/a5d906c4-5ad3-4206-b0cd-8d75cf845065" />
 
 ```
 wanderlust/
