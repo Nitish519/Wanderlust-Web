@@ -1,0 +1,192 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wanderLust</title>
+</head> -->
+<!-- 
+  <style>
+         #filters {
+            display: flex;  
+            flex-wrap: wrap;
+         }
+      </style> -->
+
+<% layout("/layouts/boilerplate.ejs") %>
+
+<!-- <%= success %> -->
+ 
+    
+
+<body>
+    <!-- <h1>All Listings</h1> -->
+    <!-- <form method="GET" action="/listings/new">
+        <button>Create new Listing</button>
+    </form> -->
+
+
+
+  <div id="filters">
+    
+        <div class="filter">
+          <i class="fa-solid fa-fire"></i>
+          <a href="/listings/new" style="text-decoration: none; color: black;"> <p>Trending</p></a>
+         
+        </div>
+
+        <div class="filter">
+          <i class="fa-solid fa-bed"></i>
+          <p>Rooms</p>
+        </div>
+        <div class="filter">
+        <i class="fa-solid fa-mountain"></i>
+          <p>Mountains</p>
+        </div>
+
+        <div class="filter">
+         <i class="fa-solid fa-city"></i>
+          <p>Iconic Cities</p>
+        </div>
+
+        <div class="filter">
+         <i class="fa-solid fa-person-swimming"></i>
+          <p>Amazing Pools</p>
+        </div>
+
+
+        <div class="filter">
+         <i class="fa-solid fa-chess"></i>
+          <p>Castles</p>
+        </div>
+
+        <div class="filter">
+         <i class="fa-solid fa-tree"></i>
+          <p>Cabins</p>
+        </div>
+
+        <div class="filter">
+          <i class="fa-solid fa-snowflake"></i>
+          <p>Arctic</p>
+
+          </div>
+
+
+<!-- //added event listener to this switch at last of this file -->
+ <div class="tax-toggle">
+
+          <div class="form-check-reverse form-switch">  
+                        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        <label class="form-check-label" for="switchCheckDefault">Display after taxes</label>
+          </div>
+
+ </div>
+  </div>
+
+
+
+  <div class="mb-3">
+
+  <h5>Filter by Price</h5>
+
+  <a href="/listings?priceRange=0-2000" class="btn btn-outline-dark btn-sm">₹0–2000</a>
+
+  <a href="/listings?priceRange=2000-3000" class="btn btn-outline-dark btn-sm">₹2000–3000</a>
+
+  <a href="/listings?priceRange=3000-4000" class="btn btn-outline-dark btn-sm">₹3000–4000</a>
+
+  <a href="/listings?priceRange=5000" class="btn btn-outline-dark btn-sm">₹5000+</a>
+
+  <a href="/listings" class="btn btn-outline-secondary btn-sm">Clear</a>
+
+</div>
+
+
+
+
+
+<div class="container-fluid px-5 mt-4">
+
+  <h2 class="mb-4 text-center">All Listings</h2>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+    <% if (allListings.length === 0) { %>
+
+  <div class="text-center clear">
+    <h4>No listings found 😔</h4>
+    <p>Try a different price range</p>
+    <a href="/listings" class="btn btn-dark">Clear Filters</a>
+  </div>
+
+<% } else { %>
+
+  <% for(let listing of allListings) { %>
+
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+
+          <div class="listing-card">
+
+
+       
+         <img
+              src="<%= listing.images?.[0]?.url || listing.image?.url || 'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b' %>"
+              class="card-img-top"
+              alt="listing image"
+            />
+
+
+            <div class="listing-info">
+              <h6><%= listing.title %></h6>
+              <p>₹ <%= listing.price %> / night
+                 <i class="tax-info">+ 18% GST</i>
+              </p>
+              <small><%= listing.country %></small>
+            </div>
+          </div>
+
+        </a>
+      </div>
+    <% } %>
+     <% } %>
+
+  </div>
+</div>
+
+  
+       
+
+<!-- <ul>
+     <% for(let listing of allListings){ %>
+        <li><a href="/listings/<%=listing._id %>"> <%= listing.title %> </a></li>
+   <% }%>
+</ul> -->
+
+
+
+<script>
+     let taxSwitch=document.getElementById('switchCheckDefault');
+     taxSwitch.addEventListener("click",function(){
+        // if(this.checked){
+        //     document.querySelectorAll('.tax-info').forEach(el => el.style.display = 'inline');
+        // }else{
+        //     document.querySelectorAll('.tax-info').forEach(el => el.style.display = 'none');
+        // }
+
+        let taxInfo = document.getElementsByClassName('tax-info');
+        for(info of taxInfo){
+
+          if(info.style.display === "inline"){
+            info.style.display = "none";
+           
+          }else{
+                info.style.display = "inline";
+          }
+        
+        }
+     });
+</script>
+   
+</body>
+<!-- </html> -->

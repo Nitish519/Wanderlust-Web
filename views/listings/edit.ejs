@@ -1,0 +1,110 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wanderLust</title>
+</head>-->
+
+ <% layout("/layouts/boilerplate.ejs") %>
+
+
+<body> 
+
+    <!-- // form can only send get or post request so you need to use method_override here  npm i mehtod-override-->
+   <h3>Edit your Listing</h3>
+
+      <form action="/listings/<%= detail._id %>?_method=PUT" method="POST" novalidate class="needs-validation"
+            enctype="multipart/form-data">
+        
+
+        <div class="mb-3">
+              <lable for="title" class="form-label"> Title </lable>
+              <input type="text" name="listing[title]" placeholder="enter Title" value="<%= detail.title %>"  class="form-control" required>
+
+
+              <!-- //you can add success failure text if you want -->
+        </div>
+
+        <div class="mb-3">
+               <lable for="description" class="form-label"> Description</lable>
+               <textarea name="listing[description]" placeholder="enter description"  class="form-control" required><%= detail.description %></textarea>
+        </div>
+
+
+<!-- //image preview -->
+
+           <div id="listingCarousel" class="carousel slide">
+
+  <div class="carousel-inner">
+
+    <% if (detail.images && detail.images.length > 0) { %>
+
+      <% detail.images.forEach((img, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+          <img src="<%=img.url %>" class="d-block w-100 rounded" style="height: 400px; object-fit: cover;">
+        </div>
+      <% }) %>
+
+    <% } else { %>
+
+      <!-- fallback image -->
+      <div class="carousel-item active">
+        <img 
+          src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
+          class="d-block w-100 rounded" 
+          style="height: 400px; object-fit: cover;"
+        >
+      </div>
+
+    <% } %>
+
+  </div>
+
+  <!-- Previous button -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <!-- Next button -->
+  <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
+
+        <div class="mb-3">
+            <!-- upload new image is not required -->
+              <lable for="image" class="form-label">Upload new image</lable>
+              <input
+              type="file"
+              name="listing[images]"
+              placeholder="enter image url/LINK"
+              value="<%= detail.images.url %>"  class="form-control">  
+        </div>
+
+
+<!-- price -->
+
+      <div class="mb-3">
+              <lable for="price" class="form-label"> Price </lable>
+              <input type="number" name="listing[price]" placeholder="enter price" value="<%= detail.price %>"  class="form-control" required>
+          </div>
+
+
+        <div class="mb-3">
+              <lable for="country" class="form-label"> Country </lable>
+              <input type="text" name="listing[country]" placeholder="enter country" value="<%= detail.country%>"  class="form-control" required>
+          </div>
+
+
+        <div class="mb-3">
+              <lable for="location" class="form-label">Location </lable>
+              <input type="text" name="listing[location]" placeholder="enter location" value="<%= detail.location %>"  class="form-control" required>
+        </div>
+
+
+        <button class="btn btn-dark edit-btn">Edit</button>
+      </form>
+</body>
+<!-- </html> -->

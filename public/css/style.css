@@ -1,0 +1,241 @@
+body{
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* Navbar */
+
+.navbar{
+    height: 5rem;
+    background-color: rgb(198, 197, 197);
+}
+
+
+.fa-compass{
+    color:red;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 ! important;   /*// to override over bootstrap */
+}
+
+/* Footer*/
+
+
+/* Footer wrapper */
+footer {
+  background-color: #f5f5dc;
+  padding: 1.5rem 0;
+}
+
+/* Inner footer content */
+.f-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* ✅ fixed */
+  justify-content: space-evenly;
+  height: 8rem;
+  text-align: center;
+}
+
+/* Links */
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+  margin: 0 0.5rem;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+/* Social icons */
+.f-info-socials {
+  font-size: 1.3rem;
+  margin: 0.75rem 0;
+}
+
+.f-info-socials i {
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+.f-info-socials i:hover {
+  color: #555;
+}
+
+
+
+/* cards */
+
+/* .listing-card {
+    border: none !important;
+    margin-bottom: 2 rem;
+}
+
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p{
+    font-weight: 600;
+}
+
+.listing-link{
+    text-decoration: none !important;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+} */
+
+/* //chatgpt */
+
+
+/* Links */
+.listing-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card */
+.listing-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.listing-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text */
+.listing-info {
+  padding: 10px 6px;
+}
+
+.listing-info h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.listing-info p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.listing-info small {
+  color: #666;
+}
+
+.row{
+    border: none;
+}
+
+
+
+.add-btn{
+    background-color: red !important;
+}
+
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.filter{
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+.filter:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+.filter p{
+      font-size: 0.8rem;
+}
+
+
+
+.tax-info{
+     display: none;
+}
+
+.tax-toggle{
+      border : 1px solid rgb(83, 80, 80);
+      border-radius: 1rem;
+      /* justify-content: center; */
+      height: 70px;
+      padding:1rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+}
+
+
+/* search bar */
+
+.btn-search{
+    background-color: rgb(242, 8, 8) !important;
+    border: none !important;
+    color: rgb(40, 35, 35) !important;
+    border-radius: 24px !important;
+    padding: 0 1rem 0 1rem !important;
+}
+
+.btn-search:hover{
+    background-color: rgb(255, 0, 0) !important;
+    color: white !important;
+}
+
+.btn-search i{
+    display: inline;
+    margin-right: 0.5rem;
+    
+}
+
+.search-inp{
+    border-radius: 24px !important;
+    padding: 0.5rem 1rem 0.5rem 1rem !important;
+    font-size:1rem !important;
+}
+
+
+.clear{
+    margin-top: 45rem;
+    margin-left: 42rem;
+}
+
