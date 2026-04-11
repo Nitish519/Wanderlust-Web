@@ -2,15 +2,6 @@ const Listing = require("../models/listing");
 const {cloudinary} = require("../cloudConflict.js");
 
 
-//index route
-
-// module.exports.index = async(req, res) => {
-//     const allListings = await Listing.find({});
-//     res.render("listings/index.ejs", {allListings}); 
-// }
-
-
-//index route with search query
 
 
 module.exports.index = async (req, res) => {
