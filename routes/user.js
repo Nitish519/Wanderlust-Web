@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router({mergeParams : true});
-const User = require("../models/user.js"); // userSchema
+const User = require("../models/user.js");
 const wrapAsync = require("../utills/wrapAsync");
 const passport = require("passport");
 
@@ -10,7 +10,6 @@ const {saveRedirectUrl} = require("../middleware.js");
 
 
 router.get("/signup", (req, res)=> {
-    // res.send("form0");
     res.render("users/signup.ejs");
 });
 
@@ -21,7 +20,7 @@ router.post("/signup", wrapAsync(async(req, res) => {
             const newUser = new User({email, username});
             const registerUser = await User.register(newUser, password);
             console.log(registerUser);
-//signup =>loggedin 
+//signup => loggedin 
             req.login(registerUser, (err) => {
                 if(err) {
                     return next(err);
@@ -45,14 +44,11 @@ router.get("/login", (req,res) => {
 
 router.post("/login", 
     saveRedirectUrl,
-    passport.authenticate("local", {  // search thebuser in its database
+    passport.authenticate("local", {
         failureRedirect : '/login', 
         failureFlash : true}), 
         async(req,res) => {
             req.flash("success", "welcome to WanderLust! Your are logged in!");
-            // res.redirect("/listings");
-            // res.redirect(req.session.redirectUrl);
-
             let redirectUrl = res.locals.redirectUrl || "/listings";
             res.redirect(redirectUrl);
 

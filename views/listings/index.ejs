@@ -1,31 +1,6 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wanderLust</title>
-</head> -->
-<!-- 
-  <style>
-         #filters {
-            display: flex;  
-            flex-wrap: wrap;
-         }
-      </style> -->
-
 <% layout("/layouts/boilerplate.ejs") %>
-
-<!-- <%= success %> -->
- 
-    
-
+   
 <body>
-    <!-- <h1>All Listings</h1> -->
-    <!-- <form method="GET" action="/listings/new">
-        <button>Create new Listing</button>
-    </form> -->
-
-
 
   <div id="filters">
     
@@ -72,7 +47,7 @@
           </div>
 
 
-<!-- //added event listener to this switch at last of this file -->
+   
  <div class="tax-toggle">
 
           <div class="form-check-reverse form-switch">  
@@ -82,7 +57,6 @@
 
  </div>
   </div>
-
 
 
   <div class="mb-3">
@@ -155,25 +129,10 @@
 </div>
 
   
-       
-
-<!-- <ul>
-     <% for(let listing of allListings){ %>
-        <li><a href="/listings/<%=listing._id %>"> <%= listing.title %> </a></li>
-   <% }%>
-</ul> -->
-
-
-
-<script>
+  <script>
      let taxSwitch=document.getElementById('switchCheckDefault');
      taxSwitch.addEventListener("click",function(){
-        // if(this.checked){
-        //     document.querySelectorAll('.tax-info').forEach(el => el.style.display = 'inline');
-        // }else{
-        //     document.querySelectorAll('.tax-info').forEach(el => el.style.display = 'none');
-        // }
-
+       
         let taxInfo = document.getElementsByClassName('tax-info');
         for(info of taxInfo){
 
@@ -189,4 +148,3 @@
 </script>
    
 </body>
-<!-- </html> -->

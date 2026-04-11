@@ -19,14 +19,6 @@
 
   <%- include("../includes/navbar.ejs") %>
 
-  <!-- <h2 class="px-5 mt-3">This is my Travel website</h2> -->
-
-  <!-- 🔥 THIS IS THE KEY -->
-  <!-- flash messages are rendered in the boilerplate layout,
-    so they will appear on any page that extends this layout. 
-    This way, you don't have to include the flash message rendering code in every single view.
-     Instead, you can just set flash messages in your routes,
-      and they will automatically be displayed in the layout when the page is rendered. -->
   <main class="container-fluid px-5 flex-grow-1">
     <%- include("../includes/flash.ejs") %>
     <%- body %>

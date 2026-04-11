@@ -1,17 +1,9 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wanderLust</title>
-</head>-->
 
  <% layout("/layouts/boilerplate.ejs") %>
 
 
 <body> 
 
-    <!-- // form can only send get or post request so you need to use method_override here  npm i mehtod-override-->
    <h3>Edit your Listing</h3>
 
       <form action="/listings/<%= detail._id %>?_method=PUT" method="POST" novalidate class="needs-validation"
@@ -21,9 +13,6 @@
         <div class="mb-3">
               <lable for="title" class="form-label"> Title </lable>
               <input type="text" name="listing[title]" placeholder="enter Title" value="<%= detail.title %>"  class="form-control" required>
-
-
-              <!-- //you can add success failure text if you want -->
         </div>
 
         <div class="mb-3">
@@ -32,9 +21,9 @@
         </div>
 
 
-<!-- //image preview -->
+<!--image preview -->
 
-           <div id="listingCarousel" class="carousel slide">
+<div id="listingCarousel" class="carousel slide">
 
   <div class="carousel-inner">
 
@@ -48,7 +37,7 @@
 
     <% } else { %>
 
-      <!-- fallback image -->
+      <!--fallback image -->
       <div class="carousel-item active">
         <img 
           src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
@@ -74,7 +63,6 @@
 </div>
 
         <div class="mb-3">
-            <!-- upload new image is not required -->
               <lable for="image" class="form-label">Upload new image</lable>
               <input
               type="file"
@@ -107,4 +95,3 @@
         <button class="btn btn-dark edit-btn">Edit</button>
       </form>
 </body>
-<!-- </html> -->

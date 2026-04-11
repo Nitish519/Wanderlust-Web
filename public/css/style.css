@@ -20,7 +20,7 @@ body{
 }
 
 .nav-link {
-    color: #222222 ! important;   /*// to override over bootstrap */
+    color: #222222 ! important;
 }
 
 /* Footer*/
@@ -69,43 +69,6 @@ footer {
 }
 
 
-
-/* cards */
-
-/* .listing-card {
-    border: none !important;
-    margin-bottom: 2 rem;
-}
-
-
-.card-img-top {
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-}
-
-.card-body {
-    padding: 0 !important;
-}
-
-.card-text p{
-    font-weight: 600;
-}
-
-.listing-link{
-    text-decoration: none !important;
-}
-
-.card-img-overlay{
-    opacity: 0;
-}
-
-.card-img-overlay:hover {
-    opacity: 0.2;
-    background-color: white;
-} */
-
-/* //chatgpt */
 
 
 /* Links */

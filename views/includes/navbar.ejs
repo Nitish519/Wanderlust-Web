@@ -1,38 +1,24 @@
-<!-- using bootstrap and font awesome for icom -->
- <!-- include font-awesome cdn in boilerplate first and bootstrap style and script js too -->
-
-
-
-
-
-
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
  <div class="container-fluid px-4">
 
     <a class="navbar-brand" href="#"> <b><i class="fa-regular fa-compass"></i></b></a>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/listings"><b>Explore</b></a>
-        <!-- <a class="nav-link" href="/listings"><b>All Listing</b></a> -->
-        <!-- <a class="nav-link" href="/listings/new"><b>Add New Listing</b></a> -->
-        
+      
       </div>
 
 
-<!-- //search bar => build search backend login=c later on you own-->
+<!--search bar -->
 
-      <div class="navbar-nav ms-auto">
-        <!-- bg-body-tertiary -->
+    <div class="navbar-nav ms-auto">
         <nav class="navbar">     
-  <div class="container-fluid">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search"/>
-            <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-          </form>
-  </div>
+          <div class="container-fluid">
+                  <form class="d-flex" role="search">
+                    <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search"/>
+                    <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                  </form>
+          </div>
 </nav>
       </div>
 
@@ -41,7 +27,6 @@
  
 
        <div class="navbar-nav ms-auto">
-        <!-- // we cant get req in ejs directly but we can store it in locals and then can do it so go to app.js and store it in curUser -->
             <a class="nav-link" href="/listings/new"><b>Add New Listing</b></a>
 
           <% if(!currUser) { %>

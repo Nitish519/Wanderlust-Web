@@ -6,12 +6,9 @@ const Review = require("./models/review");
 
 module.exports.isLoggedIn = (req, res, next) => {
 
-    // console.log(req);
-    //console.log(req.path, "..", req.originalUrl)
+      if(!req.isAuthenticated()){ 
 
-      if(!req.isAuthenticated()){   // chech user loggecd in or not
-
-        req.session.redirectUrl = req.originalUrl; //store in session =>  “Remember the page the user was trying to visit BEFORE login”  so that after login we can redirect them to that page instead of homepage
+        req.session.redirectUrl = req.originalUrl; 
                     req.flash("error", "you must be logged in to create a listing!");
                     return res.redirect("/login");
                 }
@@ -19,9 +16,6 @@ module.exports.isLoggedIn = (req, res, next) => {
                 next();
 } 
 
-
-//if we directly use redirect in user.js then it will be undefined so save it in locals  =
-//Make redirect URL available in views and controllers safely”
 module.exports.saveRedirectUrl = (req, res, next) => {  
       if(req.session.redirectUrl) {
         res.locals.redirectUrl = req.session.redirectUrl;
@@ -38,7 +32,7 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
         let {id} = req.params;
         
-                        let listing = await Listing.findById(id);  // require Listing
+                        let listing = await Listing.findById(id);
         
                         if(!listing.owner.equals(res.locals.currUser._id)) {
                             req.flash("error", "you are not the Owner of this Listing");

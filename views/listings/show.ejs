@@ -1,40 +1,14 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanderLust</title>
-</head> -->
-
 <% layout("/layouts/boilerplate.ejs") %>
 
-
 <body>
-   
-
-<!-- styling -->
-
 
 <div class="row">
     
     <div class="col-8 offset-1">
          <h3><%= detail.title %></h3>
         <div class="card  mt-3 show-card listing-card" >
-            <!-- <h3>Listing Details</h3> -->
 
-            
-<!-- //single image -->
-                <!-- <img src="detail.image.url %>" class="card-img-top" alt="listing_image"> -->
-<!--  
-                <img
-  src="  detail.image?.url || 'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b' %>"
-  class="img-fluid rounded"
-  alt="listing image"   
-/> -->
-
-
-<!-- //carousel feature -->
-
+<!--carousel feature-->
 <div id="listingCarousel" class="carousel slide">
 
   <div class="carousel-inner">
@@ -73,78 +47,59 @@
   </button>
 
 </div>
- 
-
 
             <div class="card-body ms-1 offset-2">
-                    <!-- <p class="card-text"><b><%= detail.title %></b> <br> -->
-                       
-                      <li><%= detail.description %></li>
+                       <li><%= detail.description %></li>
                        <li>&#8377; <%= detail.price %></li>
                         <li>  <%= detail.location %></li>
                         <li><%= detail.country %></li>
-                         <i class="offset-10"> Owned by <%= detail.owner.username %></i>
-
-                    
+                         <i class="offset-10"> Owned by <%= detail.owner.username %></i>                  
                      <%
-  let rating = Number(detail.avgRating) || 0;
-  let count = detail.numReviews || 0;
+                        let rating = Number(detail.avgRating) || 0;
+                        let count = detail.numReviews || 0;
 
-  let fullStars = Math.floor(rating);
-  let hasHalf = rating % 1 >= 0.5;
-  let emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
-%>
+                        let fullStars = Math.floor(rating);
+                        let hasHalf = rating % 1 >= 0.5;
+                        let emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+                     %>
 
-<% if(count === 0) { %>
-  <p>No reviews yet</p>
-<% } else { %>
+      <% if(count === 0) { %>
+        <p>No reviews yet</p>
+      <% } else { %>
 
-  <p class="mt-2">
+        <p class="mt-2">
 
-    <% for(let i = 0; i < fullStars; i++) { %>
-      ⭐
-    <% } %>
+          <% for(let i = 0; i < fullStars; i++) { %>
+            ⭐
+          <% } %>
 
-    <% if(hasHalf) { %>
-      ⭐
-    <% } %>
+          <% if(hasHalf) { %>
+            ⭐
+          <% } %>
 
-    <% for(let i = 0; i < emptyStars; i++) { %>
-      ☆
-    <% } %>
+          <% for(let i = 0; i < emptyStars; i++) { %>
+            ☆
+          <% } %>
 
-    <span>
-      <%= rating.toFixed(1) %> • <%= count %> reviews
-    </span>
+          <span>
+            <%= rating.toFixed(1) %> • <%= count %> reviews
+          </span>
 
-  </p>
-
-<% } %>
-                    
-                    </p>
-            </div>
+        </p>
+      <% } %>
+            </p>
+                  </div>
 
  </div>
-
-
-     <!-- </div> -->
-
-
      <br>
 
 
 <% if( currUser && currUser._id.equals(detail.owner._id)) { %>     
-<!-- // who can see edit or delete button -->
 
-
-<div class="row">
-
+        <div class="row">
                  <div class="col-1">
                  <a href="/listings/<%=detail._id %>/edit"  class="btn btn-success edit-btn">Edit</a>
-
         </div>
-
-        <!-- <br><br><br><br><br><br> -->
 
     <div class="col-2 ms-1">
         <form action="/listings/<%= detail._id%>?_method=DELETE", method="POST">
@@ -160,36 +115,17 @@
 <%} %>
 
 
-<!-- Review form -->
-
-
- 
-
+<!--Render Review form -->
 <div class="col-20 offset-1">
 
-    <%   if(currUser) { %>
-    
-                 <h4><b>Leave a Review</b></h4>
+    <%   if(currUser) { %>  
+              <h4><b>Leave a Review</b></h4>
+              <form class="mb-3 needs-validation" action="/listings/<%= detail.id %>/reviews" method="POST" novalidate >      
 
-              <form class="mb-3 needs-validation" action="/listings/<%= detail.id %>/reviews" method="POST" novalidate >      <!-- // needs-validation work on it as written in script.js -->
-
-                        <!-- <div class="mb-3 mt-3">
-                            <label for="rating" class="form-label">Rating</label>
-                            <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"/>
-                        </div> -->
-
-
-                        <!-- //starbility file -->
-                         
 <div class="mb-3 mt-3">
       <label for="rating" class="form-label">Rating</label>
 
 <fieldset class="starability-basic">
-
-      <!-- <label for="rating" class="form-label">Rating</label> -->
-
-
-                <!-- <legend>Rating:</legend> -->
                 <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                 <input type="radio" id="first-rate1" name="review[rating]" value= 1 />
                 <label for="first-rate1" title="Terrible">1 star</label>
@@ -201,16 +137,10 @@
                 <label for="first-rate4" title="Very good">4 stars</label>
                 <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                 <label for="first-rate5" title="Amazing">5 stars</label>
-
-
 </fieldset>
 
 </div>
-
-
-
-
-                        <div class="mb-3 mt-3">
+                 <div class="mb-3 mt-3">
                             <label for="comment" class="form-label">Comments</label>
                             <textarea name="review[comment]" id="comment" rows="8" cols="50" class="form-control" required></textarea>
 
@@ -218,36 +148,32 @@
                             <div class="invalid-feedback">
                                 please submit some comments for review
                             </div>
-                        </div>
+                  </div>
 
                         <button class="btn btn-outline-dark">Submit</button>
-                  </form>
+       </form>
 
                 <% } %>
 
                   <hr>
 
-                  <h4><b>All Reviews</b></h4>
-                   <!-- <ul>
+                  <h4><b>All Reviews</b></h4>            
                     <% for(review of detail.reviews){ %> 
                         <li><%= review.comment %>, <%= review.rating%></li>
                         <%}%>
-                   </ul> -->
+                   </ul>
 
-               <div class="row">   <!--//  to add twocards in one row -->
+               <div class="row">
                     <% for(review of detail.reviews){ %> 
-                        <!-- //using bootstrap creating card for every review -->
                         <div class="card col-5 ms-2 mb-3"> 
                             <div class="card-body">
                                 <h5 class="card-title"><b><%=review.author.username%></b></h5>
                                 <p class="card-text"><%=review.comment%></p>
-                                <!-- <p class="card-text"><%=review.rating%> stars</p> -->
-
-                            <!-- rating result -->
-
+                           
                                   <p class="starability-result card-text" data-rating="<%=review.rating %>">Rated</p>
                             </div>
-<!-- //must use method override to specify that you are sending delete request not post -->
+
+         <!--authorization for deleting review-->
                             <form action="/listings/<%= detail._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3" method="POST"> 
                                 <button class="btn btn-sm btn-dark ms-2">Delete</button>
                             </form>
@@ -256,41 +182,9 @@
                     <%}%>
 
                     </div>
-                                       
-
-
             </div>
-       
-            
-
     </div>
-
-
-   
-
-
-    
-<!-- edit -->
-
-            <!-- <a href="/listings/<%=detail._id %>/edit">Edit this Listing</a>
- -->
-
-          
-<!-- 
-            <form action="/listings/<%= detail._id%>?_method=DELETE", method="POST">
-                <button class="btn btn-dark del-btn">Delete this listing</button>
-            </form> -->
-
-
-
-    
 </div>
-
-
-
 </body>
-
-       
-<!-- </html> -->
 
 
