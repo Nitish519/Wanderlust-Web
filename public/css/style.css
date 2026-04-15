@@ -202,3 +202,18 @@ footer {
     margin-left: 42rem;
 }
 
+
+/* Show page listing details */
+
+.main-img {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.small-img {
+  height: 195px;
+  object-fit: cover;
+  width: 100%;
+}
+

@@ -6,7 +6,7 @@
     
         <div class="filter">
           <i class="fa-solid fa-fire"></i>
-          <a href="/listings/new" style="text-decoration: none; color: black;"> <p>Trending</p></a>
+           <p>Trending</p>
          
         </div>
 
@@ -103,13 +103,47 @@
           <div class="listing-card">
 
 
-       
-         <img
-              src="<%= listing.images?.[0]?.url || listing.image?.url || 'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b' %>"
-              class="card-img-top"
-              alt="listing image"
-            />
 
+ <!--carousel feature-->
+<div id="listingCarousel-<%= listing._id %>" class="carousel slide">
+
+  <div class="carousel-inner">
+
+    <% if (listing.images && listing.images.length > 0) { %>
+
+      <% listing.images.forEach((img, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+          <img src="<%=img.url %>" class="card-img-top" alt="listing image" >
+        </div>
+      <% }) %>
+
+    <% } 
+    else { %>
+
+      // !-- fallback image -->
+   <div class="carousel-item active">
+        <img 
+          src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
+          class="d-block w-100 rounded" 
+          style="height: 400px; object-fit: cover;"
+        >
+      </div>
+
+    <% } %>
+
+  </div>
+
+  <!-- Previous button -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel-<%= listing._id %>" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <!-- Next button -->
+  <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel-<%= listing._id %>" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
 
             <div class="listing-info">
               <h6><%= listing.title %></h6>

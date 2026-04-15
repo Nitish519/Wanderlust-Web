@@ -5,48 +5,31 @@
 <div class="row">
     
     <div class="col-8 offset-1">
-         <h3><%= detail.title %></h3>
+         <h2><%= detail.title %></h2>
         <div class="card  mt-3 show-card listing-card" >
 
-<!--carousel feature-->
-<div id="listingCarousel" class="carousel slide">
+<div class="row gallery">
 
-  <div class="carousel-inner">
+          <!-- LEFT -->
+          <div class="col-md-6">
+            <img src="<%= detail.images[0]?.url %>" class="main-img rounded" style="width:100%; height:600px; object-fit:cover;">
+          </div>
 
-    <% if (detail.images && detail.images.length > 0) { %>
+          <!-- RIGHT -->
+          <div class="col-md-6 right-grid">
+            <div class="row h-100 g-2">
 
-      <% detail.images.forEach((img, index) => { %>
-        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-          <img src="<%=img.url %>" class="d-block w-100 rounded" style="height: 400px; object-fit: cover;">
-        </div>
-      <% }) %>
+              <% for(let i = 1; i < 5; i++) { %>
+                <div class="col-6">
+                  <img src="<%= detail.images[i]?.url %>" class="small-img rounded">
+                </div>
+              <% } %>
 
-    <% } else { %>
-
-      <!-- fallback image -->
-      <div class="carousel-item active">
-        <img 
-          src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
-          class="d-block w-100 rounded" 
-          style="height: 400px; object-fit: cover;"
-        >
-      </div>
-
-    <% } %>
-
-  </div>
-
-  <!-- Previous button -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <!-- Next button -->
-  <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+            </div>
+          </div>
 
 </div>
+   
 
             <div class="card-body ms-1 offset-2">
                        <li><%= detail.description %></li>
@@ -155,12 +138,12 @@
 
                 <% } %>
 
+                
+
                   <hr>
 
                   <h4><b>All Reviews</b></h4>            
-                    <% for(review of detail.reviews){ %> 
-                        <li><%= review.comment %>, <%= review.rating%></li>
-                        <%}%>
+                  
                    </ul>
 
                <div class="row">
@@ -174,9 +157,13 @@
                             </div>
 
          <!--authorization for deleting review-->
+         <% if(currUser && (currUser._id.equals(review.author._id) || currUser._id.equals(detail.owner._id))) { %>
                             <form action="/listings/<%= detail._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3" method="POST"> 
                                 <button class="btn btn-sm btn-dark ms-2">Delete</button>
                             </form>
+
+                        <% } %>
+
 
                         </div>
                     <%}%>
