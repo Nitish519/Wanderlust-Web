@@ -135,17 +135,6 @@ This project can be deployed on platforms like [Render](https://render.com) or [
 - Use a cloud MongoDB URI (e.g., [MongoDB Atlas](https://www.mongodb.com/atlas))
 - Ensure Cloudinary credentials are correctly configured
 
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
