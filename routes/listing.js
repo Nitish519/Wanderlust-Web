@@ -44,7 +44,8 @@ router.get("/new",isLoggedIn, listingController.renderNewForm);
                 router.put("/:id",
                     isLoggedIn, 
                     isOwner,
-                    upload.array("images", 5),
+                    // upload.array("images", 5),
+                    upload.array("listing[images]", 5),
                     wrapAsync(listingController.updatelisting));
 
 // Delete listing

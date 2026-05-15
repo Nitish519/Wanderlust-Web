@@ -1,97 +1,178 @@
+<% layout("/layouts/boilerplate.ejs") %>
 
- <% layout("/layouts/boilerplate.ejs") %>
+<body>
 
+    <h3>Edit your Listing</h3>
 
-<body> 
+    <form
+        action="/listings/<%= detail._id %>?_method=PUT"
+        method="POST"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+    >
 
-   <h3>Edit your Listing</h3>
-
-      <form action="/listings/<%= detail._id %>?_method=PUT" method="POST" novalidate class="needs-validation"
-            enctype="multipart/form-data">
-        
-
+        <!-- Title -->
         <div class="mb-3">
-              <lable for="title" class="form-label"> Title </lable>
-              <input type="text" name="listing[title]" placeholder="enter Title" value="<%= detail.title %>"  class="form-control" required>
+            <label for="title" class="form-label">
+                Title
+            </label>
+
+            <input
+                type="text"
+                name="listing[title]"
+                placeholder="Enter Title"
+                value="<%= detail.title %>"
+                class="form-control"
+                required
+            >
         </div>
 
+        <!-- Description -->
         <div class="mb-3">
-               <lable for="description" class="form-label"> Description</lable>
-               <textarea name="listing[description]" placeholder="enter description"  class="form-control" required><%= detail.description %></textarea>
-        </div>
+            <label for="description" class="form-label">
+                Description
+            </label>
 
-
-<!--image preview -->
-
-<div id="listingCarousel" class="carousel slide">
-
-  <div class="carousel-inner">
-
-    <% if (detail.images && detail.images.length > 0) { %>
-
-      <% detail.images.forEach((img, index) => { %>
-        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-          <img src="<%=img.url %>" class="d-block w-100 rounded" style="height: 400px; object-fit: cover;">
-        </div>
-      <% }) %>
-
-    <% } else { %>
-
-      <!--fallback image -->
-      <div class="carousel-item active">
-        <img 
-          src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
-          class="d-block w-100 rounded" 
-          style="height: 400px; object-fit: cover;"
-        >
-      </div>
-
-    <% } %>
-
-  </div>
-
-  <!-- Previous button -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <!-- Next button -->
-  <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-</div>
-
-        <div class="mb-3">
-              <lable for="image" class="form-label">Upload new image</lable>
-              <input
-              type="file"
-              name="listing[images]"
-              placeholder="enter image url/LINK"
-              value="<%= detail.images.url %>"  class="form-control">  
+            <textarea
+                name="listing[description]"
+                placeholder="Enter description"
+                class="form-control"
+                style="height: 100px;"
+                required
+            ><%= detail.description %></textarea>
         </div>
 
 
-<!-- price -->
+        <!-- Delete Images Section -->
+        <% if (detail.images && detail.images.length > 0) { %>
 
-      <div class="mb-3">
-              <lable for="price" class="form-label"> Price </lable>
-              <input type="number" name="listing[price]" placeholder="enter price" value="<%= detail.price %>"  class="form-control" required>
-          </div>
+            <div class="mb-4">
 
+                <h5 class="mb-3">
+                    Select Images to Delete
+                </h5>
 
+                <div class="row">
+
+                    <% detail.images.forEach((img) => { %>
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="card shadow-sm">
+
+                                <img
+                                    src="<%= img.url %>"
+                                    class="card-img-top"
+                                    style="height: 250px; object-fit: cover;"
+                                >
+
+                                <div class="card-body text-center">
+
+                                    <div class="form-check d-flex justify-content-center align-items-center gap-2">
+
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            name="deleteImages"
+                                            value="<%= img.filename %>"
+                                        >
+
+                                        <label class="form-check-label">
+                                            Delete Image
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <% }) %>
+
+                </div>
+
+            </div>
+
+        <% } %>
+
+        <!-- Upload New Images -->
         <div class="mb-3">
-              <lable for="country" class="form-label"> Country </lable>
-              <input type="text" name="listing[country]" placeholder="enter country" value="<%= detail.country%>"  class="form-control" required>
-          </div>
 
+            <label class="form-label">
+                Upload New Images
+            </label>
 
-        <div class="mb-3">
-              <lable for="location" class="form-label">Location </lable>
-              <input type="text" name="listing[location]" placeholder="enter location" value="<%= detail.location %>"  class="form-control" required>
+            <input
+                type="file"
+                name="listing[images]"
+                class="form-control"
+                multiple
+            >
+
         </div>
 
+        <!-- Price -->
+        <div class="mb-3">
 
-        <button class="btn btn-dark edit-btn">Edit</button>
-      </form>
+            <label for="price" class="form-label">
+                Price
+            </label>
+
+            <input
+                type="number"
+                name="listing[price]"
+                placeholder="Enter price"
+                value="<%= detail.price %>"
+                class="form-control"
+                required
+            >
+
+        </div>
+
+        <!-- Country -->
+        <div class="mb-3">
+
+            <label for="country" class="form-label">
+                Country
+            </label>
+
+            <input
+                type="text"
+                name="listing[country]"
+                placeholder="Enter country"
+                value="<%= detail.country %>"
+                class="form-control"
+                required
+            >
+
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+
+            <label for="location" class="form-label">
+                Location
+            </label>
+
+            <input
+                type="text"
+                name="listing[location]"
+                placeholder="Enter location"
+                value="<%= detail.location %>"
+                class="form-control"
+                required
+            >
+
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-dark edit-btn">
+            Edit Listing
+        </button>
+
+    </form>
+
 </body>

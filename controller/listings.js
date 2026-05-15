@@ -91,23 +91,74 @@ module.exports.renderEditForm = async (req,res) => {
 
 // Update listing details and handle new image uploads
 
-module.exports.updatelisting = async (req, res) => {  
-              let {id} = req.params;
-              let   listing =  await Listing.findByIdAndUpdate(id, {...req.body.listing});
+// module.exports.updatelisting = async (req, res) => {  
+//               let {id} = req.params;
+//               let   listing =  await Listing.findByIdAndUpdate(id, {...req.body.listing},
+//                 {new: true, runValidators: true}
+//               );
+
+
            
-             if (req.files && req.files.length > 0) {
-                    const newImages = req.files.map((file) => ({
-                        url: file.secure_url,
-                        filename: file.public_id,
-                    }));
+//              if (req.files && req.files.length > 0) {
+//                     const newImages = req.files.map((file) => ({
+//                         url: file.secure_url,
+//                         filename: file.public_id,
+//                     }));
 
-                    listing.images.push(...newImages);
+//                     listing.images.push(...newImages);
 
-                    await listing.save();
-                    }
-                req.flash("success", "Listing Updated");
-                res.redirect(`/listings/${id}`);
-                };
+//                     await listing.save();
+//                     }
+//                 req.flash("success", "Listing Updated");
+//                 res.redirect(`/listings/${id}`);
+//                 };
+
+
+module.exports.updatelisting = async (req, res) => {
+
+    let { id } = req.params;
+
+    let listing = await Listing.findByIdAndUpdate(
+        id,
+        { ...req.body.listing },
+        { new: true }
+    );
+
+    // upload new images
+    if (req.files && req.files.length > 0) {
+
+        const newImages = req.files.map((file) => ({
+            url: file.secure_url,
+            filename: file.public_id,
+        }));
+
+        listing.images.push(...newImages);
+
+        await listing.save();
+    }
+
+    // delete selected images
+    if (req.body.deleteImages) {
+
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+
+        await listing.updateOne({
+            $pull: {
+                images: {
+                    filename: {
+                        $in: req.body.deleteImages,
+                    },
+                },
+            },
+        });
+    }
+
+    req.flash("success", "Listing Updated");
+
+    res.redirect(`/listings/${id}`);
+};
 
 
 
