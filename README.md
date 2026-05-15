@@ -33,7 +33,8 @@ A full-stack Airbnb-inspired web application where users can discover, list, and
 ---
 
 ## 📁 Project Structure
-<img width="1913" height="925" alt="image" src="https://github.com/user-attachments/assets/a5d906c4-5ad3-4206-b0cd-8d75cf845065" />
+<img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/a8bf86c7-ecaa-4528-b64f-507db57c271c" />
+
 
 ```
 wanderlust/
