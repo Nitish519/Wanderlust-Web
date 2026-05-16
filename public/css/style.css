@@ -161,7 +161,7 @@ footer {
       border : 1px solid rgb(83, 80, 80);
       border-radius: 1rem;
       /* justify-content: center; */
-      height: 70px;
+      height: 50px;
       padding:1rem;
       margin-top: 1rem;
       display: flex;
@@ -174,14 +174,14 @@ footer {
 .btn-search{
     background-color: rgb(242, 8, 8) !important;
     border: none !important;
-    color: rgb(40, 35, 35) !important;
+    color: rgb(193, 188, 188) !important;
     border-radius: 24px !important;
     padding: 0 1rem 0 1rem !important;
 }
 
 .btn-search:hover{
     background-color: rgb(255, 0, 0) !important;
-    color: white !important;
+    color: rgb(20, 19, 19) !important;
 }
 
 .btn-search i{

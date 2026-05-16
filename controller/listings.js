@@ -6,14 +6,28 @@ const {cloudinary} = require("../cloudConflict.js");
 // Fetch and filter listings based on price range
 module.exports.index = async (req, res) => {
 
-  let { priceRange } = req.query;
+  let { priceRange, search } = req.query;
   let query = {};
 
+  // SEARCH 
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { location: { $regex: search, $options: "i" } },
+      { country: { $regex: search, $options: "i" } }
+    ];
+  }
+
+  // PRICE FILTER 
   if (priceRange) {
-    if (priceRange === "5000") {   
+
+    if (priceRange === "5000") {
       query.price = { $gte: 5000 };
     } else {
-      let [min, max] = priceRange.split("-").map(Number);
+
+      let [min, max] = priceRange
+        .split("-")
+        .map(Number);
 
       query.price = {
         $gte: min,
@@ -21,9 +35,13 @@ module.exports.index = async (req, res) => {
       };
     }
   }
-  
+
   const allListings = await Listing.find(query);
-  res.render("listings/index.ejs", { allListings });
+
+  res.render("listings/index.ejs", {
+    allListings, 
+    req
+});
 };
 
 // render form for new listing creation

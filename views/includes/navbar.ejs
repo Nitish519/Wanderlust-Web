@@ -14,9 +14,20 @@
     <div class="navbar-nav ms-auto">
         <nav class="navbar">     
           <div class="container-fluid">
-                  <form class="d-flex" role="search">
-                    <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search"/>
-                    <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                 <form action="/listings" method="GET" class="d-flex">
+                    <input 
+                    class="form-control me-2 search-inp" 
+                    type="search" 
+                    name ="search"
+                    placeholder="Search destinations" 
+                    aria-label="Search"
+                    value="<%= search %>"
+                    />
+
+                    <button class="btn-search" type="submit">
+                        Search
+                      </button>
+
                   </form>
           </div>
 </nav>

@@ -114,6 +114,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser()); 
 
 
+app.use((req, res, next) => {
+    res.locals.search = req.query.search || "";
+    next();
+});
 
 //flash msgs
 app.use((req,res,next) => {

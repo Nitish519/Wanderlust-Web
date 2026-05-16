@@ -3,37 +3,16 @@
 <body>
 
   <div id="filters">
-    
-        <div class="filter">
-          <i class="fa-solid fa-fire"></i>
-           <p>Trending</p>
-         
-        </div>
 
         <div class="filter">
           <i class="fa-solid fa-bed"></i>
-          <p>Rooms</p>
+          <p>Hotels</p>
         </div>
         <div class="filter">
         <i class="fa-solid fa-mountain"></i>
           <p>Mountains</p>
         </div>
 
-        <div class="filter">
-         <i class="fa-solid fa-city"></i>
-          <p>Iconic Cities</p>
-        </div>
-
-        <div class="filter">
-         <i class="fa-solid fa-person-swimming"></i>
-          <p>Amazing Pools</p>
-        </div>
-
-
-        <div class="filter">
-         <i class="fa-solid fa-chess"></i>
-          <p>Castles</p>
-        </div>
 
         <div class="filter">
          <i class="fa-solid fa-tree"></i>
@@ -41,8 +20,21 @@
         </div>
 
         <div class="filter">
+          <i class="fa-solid fa-umbrella-beach"></i>
+          <p>beaches</p>
+
+          </div>
+
+           <div class="filter">
           <i class="fa-solid fa-snowflake"></i>
-          <p>Arctic</p>
+          <p>snow</p>
+
+          </div>
+
+
+           <div class="filter">
+         <i class="fa-solid fa-water"></i>
+          <p>Lakes</p>
 
           </div>
 
@@ -55,10 +47,72 @@
                         <label class="form-check-label" for="switchCheckDefault">Display after taxes</label>
           </div>
 
- </div>
+ </div>   
+
+
+ <!-- //price range filter -->
+
+
+      <div class="mb-3">
+
+              <!-- <h6>Filter by Price</h6> -->
+
+              <form action="/listings" method="GET" class="d-flex gap-2 mt-4">
+
+                <!-- Preserve search -->
+                <input
+                  type="hidden"
+                  name="search"
+                  value="<%= search  %>"
+                >
+
+                <select
+                  name="priceRange"
+                  class="form-select"
+                >
+                  <option value="">
+                    Select Budget
+                  </option>
+
+                  <option value="0-2000">
+                    ₹0–2000
+                  </option>
+
+                  <option value="2000-3000">
+                    ₹2000–3000
+                  </option>
+
+                  <option value="3000-4000">
+                    ₹3000–4000
+                  </option>
+
+                  <option value="5000">
+                    ₹5000+
+                  </option>
+                </select>
+
+                <button
+                  type="submit"
+                  class="btn btn-dark"
+                >
+                  Apply
+                </button>
+
+                <a
+                  href="/listings"
+                  class="btn btn-outline-secondary"
+                >
+                  Clear
+                </a>
+
+              </form>
+
+            </div>
+
+
   </div>
 
-
+<!-- 
   <div class="mb-3">
 
   <h5>Filter by Price</h5>
@@ -73,7 +127,11 @@
 
   <a href="/listings" class="btn btn-outline-secondary btn-sm">Clear</a>
 
-</div>
+</div> -->
+
+
+
+
 
 
 
@@ -88,8 +146,8 @@
     <% if (allListings.length === 0) { %>
 
   <div class="text-center clear">
-    <h4>No listings found 😔</h4>
-    <p>Try a different price range</p>
+    <h4>No listings found</h4>
+    <!-- <p>Try a different price range</p> -->
     <a href="/listings" class="btn btn-dark">Clear Filters</a>
   </div>
 
@@ -150,6 +208,7 @@
               <p>₹ <%= listing.price %> / night
                  <i class="tax-info">+ 18% GST</i>
               </p>
+              <small><%= listing.location %></small>
               <small><%= listing.country %></small>
             </div>
           </div>
