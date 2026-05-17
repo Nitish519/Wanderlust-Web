@@ -5,7 +5,7 @@
     <h3>Edit your Listing</h3>
 
     <form
-        action="/listings/<%= detail._id %>?_method=PUT"
+        action="/listings/<%= listing._id %>?_method=PUT"
         method="POST"
         novalidate
         class="needs-validation"
@@ -22,7 +22,7 @@
                 type="text"
                 name="listing[title]"
                 placeholder="Enter Title"
-                value="<%= detail.title %>"
+                value="<%= listing.title %>"
                 class="form-control"
                 required
             >
@@ -40,12 +40,14 @@
                 class="form-control"
                 style="height: 100px;"
                 required
-            ><%= detail.description %></textarea>
+            ><%= listing.description %></textarea>
         </div>
+
+<!-- //before you implemented coursoule feature here, there you can only see imaghes  -->
 
 
         <!-- Delete Images Section -->
-        <% if (detail.images && detail.images.length > 0) { %>
+        <% if (listing.images && listing.images.length > 0) { %>
 
             <div class="mb-4">
 
@@ -55,7 +57,7 @@
 
                 <div class="row">
 
-                    <% detail.images.forEach((img) => { %>
+                    <% listing.images.forEach((img) => { %>
 
                         <div class="col-md-4 mb-3">
 
@@ -114,6 +116,54 @@
 
         </div>
 
+
+
+        <!-- Category -->
+   <div class="mb-3">
+
+              <label class="form-label">
+                Category
+              </label>
+
+              <select
+                name="listing[category]"
+                class="form-select"
+              >
+
+                <option value="Hotels"
+                  <%= listing.category === "Hotels" ? "selected" : "" %>>
+                  Hotels
+                </option>
+
+                <option value="Mountains"
+                  <%= listing.category === "Mountains" ? "selected" : "" %>>
+                  Mountains
+                </option>
+
+                <option value="Cabins"
+                  <%= listing.category === "Cabins" ? "selected" : "" %>>
+                  Cabins
+                </option>
+
+                <option value="Beaches"
+                  <%= listing.category === "Beaches" ? "selected" : "" %>>
+                  Beaches
+                </option>
+
+                <option value="Snow"
+                  <%= listing.category === "Snow" ? "selected" : "" %>>
+                  Snow
+                </option>
+
+                <option value="Lakes"
+                  <%= listing.category === "Lakes" ? "selected" : "" %>>
+                  Lakes
+                </option>
+
+              </select>
+
+</div>
+
         <!-- Price -->
         <div class="mb-3">
 
@@ -125,7 +175,7 @@
                 type="number"
                 name="listing[price]"
                 placeholder="Enter price"
-                value="<%= detail.price %>"
+                value="<%= listing.price %>"
                 class="form-control"
                 required
             >
@@ -143,7 +193,7 @@
                 type="text"
                 name="listing[country]"
                 placeholder="Enter country"
-                value="<%= detail.country %>"
+                value="<%= listing.country %>"
                 class="form-control"
                 required
             >
@@ -161,7 +211,7 @@
                 type="text"
                 name="listing[location]"
                 placeholder="Enter location"
-                value="<%= detail.location %>"
+                value="<%= listing.location %>"
                 class="form-control"
                 required
             >
