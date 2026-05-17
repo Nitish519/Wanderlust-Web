@@ -29,7 +29,11 @@
   <!-- //image upload -->                
           <div class="mb-3">
                    <lable for="image" class="form-label">Add Image(maximum 5 images)</lable>
-                   <input type="file" name="images"  class="form-control" multiple required>
+                   <input type="file" name="listing[images]"  class="form-control" multiple required>
+
+                   <!-- <div class="invalid-feedback">
+                        <p>you can upload maximum 5 images only</p>
+                    </div> -->
          </div>
 
 
@@ -107,7 +111,7 @@
          </div>
        
           <br>
-        <button class="btn btn-dark add-btn">ADD</button>
+        <button class="btn btn-dark add-btn mb-3">ADD</button>
       </form>
 </body>
 </html>

@@ -182,23 +182,7 @@
 
         </div>
 
-        <!-- Country -->
-        <div class="mb-3">
-
-            <label for="country" class="form-label">
-                Country
-            </label>
-
-            <input
-                type="text"
-                name="listing[country]"
-                placeholder="Enter country"
-                value="<%= listing.country %>"
-                class="form-control"
-                required
-            >
-
-        </div>
+    
 
         <!-- Location -->
         <div class="mb-3">
@@ -212,6 +196,25 @@
                 name="listing[location]"
                 placeholder="Enter location"
                 value="<%= listing.location %>"
+                class="form-control"
+                required
+            >
+
+        </div>
+
+
+            <!-- Country -->
+        <div class="mb-3">
+
+            <label for="country" class="form-label">
+                Country
+            </label>
+
+            <input
+                type="text"
+                name="listing[country]"
+                placeholder="Enter country"
+                value="<%= listing.country %>"
                 class="form-control"
                 required
             >
