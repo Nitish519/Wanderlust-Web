@@ -3,41 +3,48 @@
 <body>
 
   <div id="filters">
-
+   <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Hotels"  class="filter-link">
+      <div class="filter">
+        <i class="fa-solid fa-bed"></i>
+        <p>Hotels</p>
+      </div>
+    </a>
+  <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Mountains" class="filter-link">
         <div class="filter">
-          <i class="fa-solid fa-bed"></i>
-          <p>Hotels</p>
-        </div>
-        <div class="filter">
-        <i class="fa-solid fa-mountain"></i>
-          <p>Mountains</p>
-        </div>
-
-
-        <div class="filter">
-         <i class="fa-solid fa-tree"></i>
-          <p>Cabins</p>
-        </div>
-
-        <div class="filter">
-          <i class="fa-solid fa-umbrella-beach"></i>
-          <p>beaches</p>
-
+          <i class="fa-solid fa-mountain"></i>
+            <p>Mountains</p>
           </div>
+    </a>
+      <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Cabins" class="filter-link">
+          <div class="filter">
+          <i class="fa-solid fa-tree"></i>
+            <p>Cabins</p>   
+          </div>
+      </a>
 
+       <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Beaches" class="filter-link">
+          <div class="filter">
+            <i class="fa-solid fa-umbrella-beach"></i>
+            <p>Beaches</p>
+          </div>
+        </a>
+
+        <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Snow" class="filter-link">
+          <div class="filter">
+            <i class="fa-solid fa-snowflake"></i>
+            <p>Snow</p>
+          </div>
+        </a>
+
+         
+
+        <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Lakes" class="filter-link">
            <div class="filter">
-          <i class="fa-solid fa-snowflake"></i>
-          <p>snow</p>
+              <i class="fa-solid fa-water"></i>
+                <p>Lakes</p>
 
           </div>
-
-
-           <div class="filter">
-         <i class="fa-solid fa-water"></i>
-          <p>Lakes</p>
-
-          </div>
-
+        </a>
 
    
  <div class="tax-toggle">
@@ -57,7 +64,7 @@
 
               <!-- <h6>Filter by Price</h6> -->
 
-              <form action="/listings" method="GET" class="d-flex gap-2 mt-4">
+              <form action="/listings" method="GET" class="d-flex align-items-center gap-2 mt-4">
 
                 <!-- Preserve search -->
                 <input
@@ -66,43 +73,58 @@
                   value="<%= search  %>"
                 >
 
-                <select
-                  name="priceRange"
-                  class="form-select"
+
+                <input
+                  type="hidden"
+                  name="category"
+                  <%# value=" req.query.category || ''" %>
+                  value ="<%= category %>"
                 >
-                  <option value="">
-                    Select Budget
-                  </option>
 
-                  <option value="0-2000">
-                    ₹0–2000
-                  </option>
+                
 
-                  <option value="2000-3000">
-                    ₹2000–3000
-                  </option>
+              <select
+                name="priceRange"
+                class="form-select budget-select"
+                onchange="this.form.submit()"
+              >
 
-                  <option value="3000-4000">
-                    ₹3000–4000
-                  </option>
+                <option value="">
+                  Select Budget
+                </option>
 
-                  <option value="5000">
-                    ₹5000+
-                  </option>
-                </select>
+                <option
+                  value="0-2000"
+                  <%= priceRange === "0-2000" ? "selected" : "" %>>
+                  ₹0–2000
+                </option>
 
-                <button
-                  type="submit"
-                  class="btn btn-dark"
-                >
-                  Apply
-                </button>
+                <option
+                  value="2000-3000"
+                  <%= priceRange === "2000-3000" ? "selected" : "" %>>
+                  ₹2000–3000
+                </option>
+
+                <option
+                  value="3000-4000"
+                  <%= priceRange === "3000-4000" ? "selected" : "" %>>
+                  ₹3000–4000
+                </option>
+
+                <option
+                  value="5000"
+                  <%= priceRange === "5000" ? "selected" : "" %>>
+                  ₹5000+
+                </option>
+
+              </select>
+
 
                 <a
                   href="/listings"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-dark btn-sm text-nowrap"
                 >
-                  Clear
+                  Clear Filters
                 </a>
 
               </form>
@@ -112,22 +134,7 @@
 
   </div>
 
-<!-- 
-  <div class="mb-3">
 
-  <h5>Filter by Price</h5>
-
-  <a href="/listings?priceRange=0-2000" class="btn btn-outline-dark btn-sm">₹0–2000</a>
-
-  <a href="/listings?priceRange=2000-3000" class="btn btn-outline-dark btn-sm">₹2000–3000</a>
-
-  <a href="/listings?priceRange=3000-4000" class="btn btn-outline-dark btn-sm">₹3000–4000</a>
-
-  <a href="/listings?priceRange=5000" class="btn btn-outline-dark btn-sm">₹5000+</a>
-
-  <a href="/listings" class="btn btn-outline-secondary btn-sm">Clear</a>
-
-</div> -->
 
 
 
@@ -140,18 +147,19 @@
 <div class="container-fluid px-5 mt-4">
 
   <h2 class="mb-4 text-center">All Listings</h2>
+   <% if (allListings.length === 0) { %>
 
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-
-    <% if (allListings.length === 0) { %>
-
-  <div class="text-center clear">
+  <div class="clear">
     <h4>No listings found</h4>
     <!-- <p>Try a different price range</p> -->
     <a href="/listings" class="btn btn-dark">Clear Filters</a>
   </div>
 
 <% } else { %>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+   
 
   <% for(let listing of allListings) { %>
 
@@ -186,10 +194,11 @@
           style="height: 400px; object-fit: cover;"
         >
       </div>
+  <% } %>
 
-    <% } %>
 
   </div>
+    
 
   <!-- Previous button -->
   <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel-<%= listing._id %>" data-bs-slide="prev">
@@ -208,8 +217,10 @@
               <p>₹ <%= listing.price %> / night
                  <i class="tax-info">+ 18% GST</i>
               </p>
+              
               <small><%= listing.location %></small>
               <small><%= listing.country %></small>
+
             </div>
           </div>
 

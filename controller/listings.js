@@ -6,7 +6,7 @@ const {cloudinary} = require("../cloudConflict.js");
 // Fetch and filter listings based on price range
 module.exports.index = async (req, res) => {
 
-  let { priceRange, search } = req.query;
+  let { priceRange, search, category } = req.query;
   let query = {};
 
   // SEARCH 
@@ -36,6 +36,11 @@ module.exports.index = async (req, res) => {
     }
   }
 
+  // CATEGORY FILTER
+  if (category) {
+    query.category = category;
+  }
+
   const allListings = await Listing.find(query);
 
   res.render("listings/index.ejs", {
@@ -55,7 +60,7 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.showListing =   async (req, res) => {
               let {id} = req.params;
-              const detail = await Listing.findById(id).populate({
+              const listing = await Listing.findById(id).populate({
               path:"reviews", 
             populate : {
                 path : "author",
@@ -63,11 +68,11 @@ module.exports.showListing =   async (req, res) => {
             })
             .populate("owner");
 
-                if(!detail){
+                if(!listing){
                     req.flash("error", "Listing you requested for does not exist");
                     res.redirect("/listings");
                 }else{
-                    res.render("listings/show.ejs", {detail});
+                    res.render("listings/show.ejs", {listing});
                 }
                 
              }
@@ -96,41 +101,18 @@ module.exports.createListing = async (req, res,next) => {
 module.exports.renderEditForm = async (req,res) => {
                   
                 let {id} = req.params;
-                const detail = await Listing.findById(id);
+                const listing = await Listing.findById(id);
 
-                 if (!detail) {
+                 if (!listing) {
                     req.flash("error", "Listing not found");
                     return res.redirect("/listings");
                 }
 
-                res.render("listings/edit.ejs", {detail});
+                res.render("listings/edit.ejs", {listing});
 
                 }
 
-// Update listing details and handle new image uploads
-
-// module.exports.updatelisting = async (req, res) => {  
-//               let {id} = req.params;
-//               let   listing =  await Listing.findByIdAndUpdate(id, {...req.body.listing},
-//                 {new: true, runValidators: true}
-//               );
-
-
-           
-//              if (req.files && req.files.length > 0) {
-//                     const newImages = req.files.map((file) => ({
-//                         url: file.secure_url,
-//                         filename: file.public_id,
-//                     }));
-
-//                     listing.images.push(...newImages);
-
-//                     await listing.save();
-//                     }
-//                 req.flash("success", "Listing Updated");
-//                 res.redirect(`/listings/${id}`);
-//                 };
-
+// Update listing details and handle new image uploads and deletions
 
 module.exports.updatelisting = async (req, res) => {
 

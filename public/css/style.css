@@ -28,7 +28,7 @@ body{
 
 /* Footer wrapper */
 footer {
-  background-color: #f5f5dc;
+  background-color: #a4a4a2;
   padding: 1.5rem 0;
 }
 
@@ -127,16 +127,20 @@ footer {
     background-color: red !important;
 }
 
+
+/* filters navbar */
+
 #filters {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   align-items: center;
+  justify-content: space-evenly;
 }
+
 
 .filter{
   text-align: center;
-  margin-right: 2rem;
+  margin-right: 1rem;
   margin-top: 2rem;
   opacity: 0.7;
 }
@@ -151,7 +155,14 @@ footer {
       font-size: 0.8rem;
 }
 
+.filter-link{
+  text-decoration: none;
+  color: inherit;
+}
 
+
+
+/* showing listing price with tax */
 
 .tax-info{
      display: none;
@@ -198,22 +209,39 @@ footer {
 
 
 .clear{
-    margin-top: 45rem;
-    margin-left: 42rem;
+  min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
 }
+
+
+
 
 
 /* Show page listing details */
 
-.main-img {
-  height: 400px;
-  object-fit: cover;
-  width: 100%;
+.placeholder-main,
+.placeholder-small{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:#f5f5f5;
+    border:1px solid #ddd;
+    color:#888;
+    font-size:0.9rem;
+    font-weight:500;
 }
 
-.small-img {
-  height: 195px;
-  object-fit: cover;
-  width: 100%;
+.placeholder-main{
+    height:600px;
+}
+
+.placeholder-small{
+    height:295px;
 }
 
