@@ -5,41 +5,75 @@
 <div class="row">
     
     <div class="col-8 offset-1">
-         <h2><%= detail.title %></h2>
+         <h2><%= listing.title %></h2>
         <div class="card  mt-3 show-card listing-card" >
 
 <div class="row gallery">
 
-          <!-- LEFT -->
-          <div class="col-md-6">
-            <img src="<%= detail.images[0]?.url %>" class="main-img rounded" style="width:100%; height:600px; object-fit:cover;">
-          </div>
+  <!-- LEFT BIG IMAGE -->
+  <div class="col-md-6">
 
-          <!-- RIGHT -->
-          <div class="col-md-6 right-grid">
-            <div class="row h-100 g-2">
+    <% if(listing.images[0]?.url){ %>
 
-              <% for(let i = 1; i < 5; i++) { %>
-                <div class="col-6">
-                  <img src="<%= detail.images[i]?.url %>" class="small-img rounded">
-                </div>
-              <% } %>
+      <img
+        src="<%= listing.images[0].url %>"
+        class="main-img rounded"
+        style="width:100%; height:600px; object-fit:cover;"
+      >
 
+    <% } else { %>
+
+      <div class="placeholder-main rounded">
+        Image Not Available
+      </div>
+
+    <% } %>
+
+  </div>
+
+  <!-- RIGHT GRID -->
+  <div class="col-md-6 right-grid">
+    <div class="row h-100 g-2">
+
+      <% for(let i = 1; i < 5; i++) { %>
+
+        <div class="col-6">
+
+          <% if(listing.images[i]?.url){ %>
+
+            <img
+              src="<%= listing.images[i].url %>"
+              class="small-img rounded"
+            >
+
+          <% } else { %>
+
+            <div class="placeholder-small rounded">
+              Image Not Available
             </div>
-          </div>
+
+          <% } %>
+
+        </div>
+
+      <% } %>
+
+    </div>
+  </div>
 
 </div>
-   
 
             <div class="card-body ms-1 offset-2">
-                       <li><%= detail.description %></li>
-                       <li>&#8377; <%= detail.price %></li>
-                        <li>  <%= detail.location %></li>
-                        <li><%= detail.country %></li>
-                         <i class="offset-10"> Owned by <%= detail.owner.username %></i>                  
+                       <li><%= listing.description %></li>
+                       <li>&#8377; <%= listing.price %></li>
+            
+                         <li><%= listing.category %></li>
+                        <li>  <%= listing.location %></li>
+                        <li><%= listing.country %></li>
+                         <i class="offset-10"> Owned by <%= listing.owner.username %></i>                  
                      <%
-                        let rating = Number(detail.avgRating) || 0;
-                        let count = detail.numReviews || 0;
+                        let rating = Number(listing.avgRating) || 0;
+                        let count = listing.numReviews || 0;
 
                         let fullStars = Math.floor(rating);
                         let hasHalf = rating % 1 >= 0.5;
@@ -77,15 +111,15 @@
      <br>
 
 
-<% if( currUser && currUser._id.equals(detail.owner._id)) { %>     
+<% if( currUser && currUser._id.equals(listing.owner._id)) { %>     
 
         <div class="row">
                  <div class="col-1">
-                 <a href="/listings/<%=detail._id %>/edit"  class="btn btn-success edit-btn">Edit</a>
+                 <a href="/listings/<%=listing._id %>/edit"  class="btn btn-success edit-btn">Edit</a>
         </div>
 
     <div class="col-2 ms-1">
-        <form action="/listings/<%= detail._id%>?_method=DELETE", method="POST">
+        <form action="/listings/<%= listing._id%>?_method=DELETE", method="POST">
                 <button class="btn btn-danger del-btn">Delete </button>
             </form> 
 
@@ -103,7 +137,7 @@
 
     <%   if(currUser) { %>  
               <h4><b>Leave a Review</b></h4>
-              <form class="mb-3 needs-validation" action="/listings/<%= detail.id %>/reviews" method="POST" novalidate >      
+              <form class="mb-3 needs-validation" action="/listings/<%= listing._id %>/reviews" method="POST" novalidate >      
 
 <div class="mb-3 mt-3">
       <label for="rating" class="form-label">Rating</label>
@@ -147,7 +181,7 @@
                    </ul>
 
                <div class="row">
-                    <% for(review of detail.reviews){ %> 
+                    <% for(review of listing.reviews){ %> 
                         <div class="card col-5 ms-2 mb-3"> 
                             <div class="card-body">
                                 <h5 class="card-title"><b><%=review.author.username%></b></h5>
@@ -157,8 +191,8 @@
                             </div>
 
          <!--authorization for deleting review-->
-         <% if(currUser && (currUser._id.equals(review.author._id) || currUser._id.equals(detail.owner._id))) { %>
-                            <form action="/listings/<%= detail._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3" method="POST"> 
+         <% if(currUser && (currUser._id.equals(review.author._id) || currUser._id.equals(listing.owner._id))) { %>
+                            <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3" method="POST"> 
                                 <button class="btn btn-sm btn-dark ms-2">Delete</button>
                             </form>
 

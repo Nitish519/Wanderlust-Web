@@ -114,9 +114,20 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser()); 
 
 
-app.use((req, res, next) => {
-    res.locals.search = req.query.search || "";
-    next();
+//middleware to pass query params to ejs for filters
+
+app.use((req,res,next)=>{
+
+   res.locals.search =
+      req.query.search || "";
+
+   res.locals.priceRange =
+      req.query.priceRange || "";
+
+   res.locals.category =
+      req.query.category || "";
+
+   next();
 });
 
 //flash msgs
