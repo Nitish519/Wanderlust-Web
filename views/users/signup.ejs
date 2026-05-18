@@ -1,56 +1,93 @@
-<% layout("/layouts/boilerplate.ejs") %> 
+<% layout("/layouts/boilerplate.ejs") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">SignUp on WanderLust</h1>
-    <div class="col-6 offset-3">
-            <form action="/signup" method="POST" class="needs-validation" novalidate>
-                
-                <div class="mb-3">
-                    <lable for="username" class="form-label"> Username </lable>
-                    <input 
-                    type="text" 
-                    name="username" 
+<div class="auth-wrapper">
+
+    <div class="auth-card">
+
+        <h2 class="auth-title">
+            Join WanderLust
+        </h2>
+
+        <form
+            action="/signup"
+            method="POST"
+            class="needs-validation"
+            novalidate
+        >
+
+            <!-- username -->
+            <div class="mb-4">
+
+                <label
+                    for="username"
+                    class="form-label"
+                >
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
                     id="username"
-                     class="form-control" 
-                     required
-                     />
+                    class="form-control auth-input"
+                    placeholder="Choose username"
+                    required
+                />
 
-                    <div class="valid-feedback">Lokks Good!</div>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
 
-                     </div>
+            </div>
 
-                    <div>
-                                <lable for="emailId" class="form-label"> Enter Email-Id </lable>
-                            <input 
-                            type="text" 
-                            name="email" 
-                            id="emailId"
-                            class="form-control" 
-                            required
-                            />
-                    </div>
-<br>
-                    <div>
-                                <lable for="password" class="form-label"> Password </lable>
-                            <input 
-                            type="password" 
-                            name="password" 
-                            id="password"
-                            class="form-control" 
-                            required
-                            />
-                    </div>
-<br>
+            <!-- email -->
+            <div class="mb-4">
 
+                <label
+                    for="emailId"
+                    class="form-label"
+                >
+                    Email
+                </label>
 
-                    <button class="btn btn-success">SignUp</button>
+                <input
+                    type="email"
+                    name="email"
+                    id="emailId"
+                    class="form-control auth-input"
+                    placeholder="Enter email"
+                    required
+                />
 
-                    
+            </div>
 
-                    
+            <!-- password -->
+            <div class="mb-4">
 
-               
+                <label
+                    for="password"
+                    class="form-label"
+                >
+                    Password
+                </label>
 
-            </form>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control auth-input"
+                    placeholder="Create password"
+                    required
+                />
+
+            </div>
+
+            <button class="btn auth-btn">
+                Sign Up
+            </button>
+
+        </form>
+
     </div>
+
 </div>

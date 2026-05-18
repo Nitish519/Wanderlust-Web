@@ -2,7 +2,13 @@
 
 <body>
 
-    <h3>Create a New Listing</h3>
+  <div class="container">
+    <div class="form-wrapper">
+        <div class="form-card">
+
+  <h2 class="form-title">
+    Create a New Listing
+</h2>
      <form action="/listings" method="POST" novalidate class="needs-validation"
       enctype="multipart/form-data">
 
@@ -79,8 +85,8 @@
 </div>
 
 
-<div class="row"> 
-            <div class="mb-3 col-3">
+<div class="row g-3"> 
+            <div class="mb-3 col-md-4">
                      <lable for="price" class="form-label" >Price</lable>
                      <input type="number" name="listing[price]" placeholder="enter price" class="form-control" required>
 
@@ -89,7 +95,7 @@
                     </div>
          </div>
 
-          <div class="mb-3 col-5">
+          <div class="mb-3 col-md-8">
 
                  <lable for="location" class="form-label" >Location</lable>
                  <input type="text" name="listing[location]" placeholder="enter location" class="form-control" required>
@@ -111,7 +117,11 @@
          </div>
        
           <br>
-        <button class="btn btn-dark add-btn mb-3">ADD</button>
+        <button class="btn btn-dark form-btn">ADD</button>
       </form>
+
+              </div>
+    </div>
+</div>
 </body>
 </html>

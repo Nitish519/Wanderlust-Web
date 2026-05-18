@@ -147,17 +147,33 @@
 <div class="container-fluid px-5 mt-4">
 
   <h2 class="mb-4 text-center">All Listings</h2>
-   <% if (allListings.length === 0) { %>
+  <% if (allListings.length === 0) { %>
 
-  <div class="clear">
-    <h4>No listings found</h4>
-    <!-- <p>Try a different price range</p> -->
-    <a href="/listings" class="btn btn-dark">Clear Filters</a>
-  </div>
+<div class="empty-state">
+
+    <i class="fa-solid fa-house-circle-xmark empty-icon"></i>
+
+    <h3>
+        No Listings Found
+    </h3>
+
+    <p>
+        Try changing filters or search again.
+    </p>
+
+    <a
+        href="/listings"
+        class="btn btn-dark empty-btn"
+    >
+        Clear Filters
+    </a>
+
+</div>
+
 
 <% } else { %>
 
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5">
 
    
 
@@ -213,13 +229,21 @@
 </div>
 
             <div class="listing-info">
-              <h6><%= listing.title %></h6>
-              <p>₹ <%= listing.price %> / night
-                 <i class="tax-info">+ 18% GST</i>
-              </p>
-              
-              <small><%= listing.location %></small>
-              <small><%= listing.country %></small>
+             <h6 class="listing-title">
+    <%= listing.title %>
+</h6>
+
+<p class="listing-price">
+    ₹ <%= listing.price %> / night
+    <i class="tax-info">
+        + 18% GST
+    </i>
+</p>
+
+<p class="listing-location">
+    <%= listing.location %>,
+    <%= listing.country %>
+</p>
 
             </div>
           </div>

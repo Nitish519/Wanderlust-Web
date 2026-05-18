@@ -149,6 +149,14 @@ app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/", userRouter);
 
+app.get("/privacy",(req,res)=>{
+    res.render("listings/privacy.ejs");
+});
+
+app.get("/terms",(req,res)=>{
+    res.render("listings/terms.ejs");
+});
+
 
 
 //error handling
@@ -165,7 +173,13 @@ app.use((err, req, res, next) => {
 
 
 
+
+
+
 let port = 8080;
 app.listen(8080, () => {
     console.log(`server is listening on ${port}`)
 })
+
+
+
