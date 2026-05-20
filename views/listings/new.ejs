@@ -27,19 +27,37 @@
 
 
          <div class="mb-3">
-                 <lable for="description" class="form-label"> Description</lable>
+                 <label for="description" class="form-label"> Description</label>
                   <textarea name="listing[description]" placeholder="enter description" class="form-control" required></textarea> 
         </div>
 
 
   <!-- //image upload -->                
           <div class="mb-3">
-                   <lable for="image" class="form-label">Add Image(maximum 5 images)</lable>
-                   <input type="file" name="listing[images]"  class="form-control" multiple required>
+                   <div class="mb-3">
 
-                   <!-- <div class="invalid-feedback">
-                        <p>you can upload maximum 5 images only</p>
-                    </div> -->
+                        <label
+                          for="imageUpload"
+                          class="form-label"
+                        >
+                          Add Images (Maximum 5)
+                        </label>
+
+                        <input
+                          type="file"
+                          name="listing[images]"
+                          class="form-control"
+                          multiple
+                          accept="image/*"
+                          id="imageUpload"
+                        >
+
+                        <small class="text-muted">
+                          Upload up to 5 images
+                        </small>
+
+                      </div>
+               
          </div>
 
 
@@ -120,7 +138,26 @@
         <button class="btn btn-dark form-btn">ADD</button>
       </form>
 
+
+
               </div>
+<!-- 
+              <script>
+
+                  document
+                  .getElementById("imageUpload")
+                  .addEventListener("change", function () {
+
+                      if(this.files.length > 5){
+
+                          alert("Maximum 5 images allowed");
+
+                          this.value = "";
+                      }
+
+                  });
+
+                  </script> -->
     </div>
 </div>
 </body>

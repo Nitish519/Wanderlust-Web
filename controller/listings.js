@@ -78,23 +78,41 @@ module.exports.showListing =   async (req, res) => {
              }
 
 // Create a new listing with uploaded images
+module.exports.createListing = async (req, res) => {
 
-module.exports.createListing = async (req, res,next) => {
-  const listing = new Listing(req.body.listing);
+  if(req.files.length > 5){
 
-   if (req.files && req.files.length > 0) {
-        listing.images = req.files.map((file) => ({
-            url: file.secure_url,  
-            filename: file.public_id,
-        }));
-    }
+      req.flash(
+        "error",
+        "Maximum 5 images allowed"
+      );
+
+      return res.redirect("/listings/new");
+  }
+
+  const listing =
+    new Listing(req.body.listing);
+
+  if(req.files && req.files.length > 0){
+
+      listing.images =
+        req.files.map(file => ({
+          url: file.secure_url,
+          filename: file.public_id,
+      }));
+  }
 
   listing.owner = req.user._id;
+
   await listing.save();
-  req.flash("success", "New Listing Created!");
+
+  req.flash(
+    "success",
+    "New Listing Created!"
+  );
+
   res.redirect("/listings");
 };
-
 
 
 // Render edit form for a listing
@@ -114,50 +132,92 @@ module.exports.renderEditForm = async (req,res) => {
 
 // Update listing details and handle new image uploads and deletions
 
-module.exports.updatelisting = async (req, res) => {
+
+module.exports.updatelisting =
+async (req, res) => {
 
     let { id } = req.params;
 
-    let listing = await Listing.findByIdAndUpdate(
+    let listing =
+      await Listing.findById(id);
+
+    // total image validation
+   const deletedCount =  req.body.deleteImages ? req.body.deleteImages.length : 0;
+
+   const uploadedCount = req.files ? req.files.length : 0;
+
+
+
+const totalImages = listing.images.length - deletedCount + uploadedCount;
+
+    if(totalImages > 5){
+
+        req.flash(
+          "error",
+          "Maximum 5 images allowed"
+        );
+
+        return res.redirect(
+          `/listings/${id}/edit`
+        );
+    }
+
+    // update fields
+    listing =
+      await Listing.findByIdAndUpdate(
         id,
         { ...req.body.listing },
         { new: true }
     );
 
     // upload new images
-    if (req.files && req.files.length > 0) {
+    if(req.files &&
+       req.files.length > 0){
 
-        const newImages = req.files.map((file) => ({
+        const newImages =
+          req.files.map(file => ({
             url: file.secure_url,
             filename: file.public_id,
         }));
 
-        listing.images.push(...newImages);
+        listing.images.push(
+          ...newImages
+        );
 
         await listing.save();
     }
 
     // delete selected images
-    if (req.body.deleteImages) {
+    if(req.body.deleteImages){
 
-        for (let filename of req.body.deleteImages) {
-            await cloudinary.uploader.destroy(filename);
+        for(let filename
+            of req.body.deleteImages){
+
+            await cloudinary
+            .uploader
+            .destroy(filename);
         }
 
         await listing.updateOne({
-            $pull: {
-                images: {
-                    filename: {
-                        $in: req.body.deleteImages,
-                    },
-                },
-            },
+            $pull:{
+                images:{
+                    filename:{
+                        $in:
+                        req.body.deleteImages
+                    }
+                }
+            }
         });
     }
 
-    req.flash("success", "Listing Updated");
+    req.flash(
+      "success",
+      "Listing Updated"
+    );
 
-    res.redirect(`/listings/${id}`);
+    res.redirect(
+      `/listings/${id}`
+    );
 };
 
 
