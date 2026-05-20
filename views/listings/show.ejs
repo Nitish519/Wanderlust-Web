@@ -275,8 +275,9 @@
         </h4>
 
         <div class="row g-4">
+            <% for(let review of listing.reviews){ %>
 
-            <% for(review of listing.reviews){ %>
+            <% if(!review) continue; %>
 
                 <div class="col-md-6">
 

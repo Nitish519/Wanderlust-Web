@@ -33,17 +33,21 @@ listing.avgRating = Number(listing.avgRating.toFixed(2));
     res.redirect(`/listings/${id}`);
 }
 
-
 module.exports.deleteReview = async (req, res) => {
+
   let { id, reviewId } = req.params;
+
   let listing = await Listing.findById(id);
   let review = await Review.findById(reviewId);
+
   let oldCount = listing.numReviews || 0;
 
+  // Update average rating
   if (oldCount <= 1) {
     listing.avgRating = 0;
     listing.numReviews = 0;
   } else {
+
     listing.avgRating =
       ((listing.avgRating * oldCount) - review.rating) /
       (oldCount - 1);
@@ -51,26 +55,20 @@ module.exports.deleteReview = async (req, res) => {
     listing.numReviews = oldCount - 1;
   }
 
+  listing.avgRating =
+    Number(listing.avgRating.toFixed(2));
 
-    if(listing.numReviews === 0){
-      listing.avgRating = 0;
-    };
+  // remove review id from listing
+  listing.reviews.pull(reviewId);
 
-  listing.avgRating = Number(listing.avgRating.toFixed(2));
+  // save listing first
+  await listing.save();
 
+  // delete review
+  await Review.findByIdAndDelete(reviewId);
 
+  req.flash("success", "review deleted!");
 
-
-    await Listing.findByIdAndUpdate(id, {
-      $pull: { reviews: reviewId }
-    });
-
-    
-    await listing.save();
-
-    await Review.findByIdAndDelete(reviewId);
-    
-    req.flash("success", "review deleted!");
-    res.redirect(`/listings/${id}`);
-  }
+  res.redirect(`/listings/${id}`);
+};
 
