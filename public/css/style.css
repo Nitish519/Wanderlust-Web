@@ -6,24 +6,207 @@ body{
 }
 
 
-/* Navbar */
+/* NAVBAR */
 
-.navbar{
-    height: 5rem;
-    background-color: rgb(198, 197, 197);
+.custom-navbar{
+    background-color: rgb(198,197,197);
+    min-height: 5rem;
+    padding: 0.8rem 0;
 }
 
+/* Logo */
+
+.navbar-brand{
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
 
 .fa-compass{
-    color:red;
+    color: red;
     font-size: 2rem;
 }
 
-.nav-link {
-    color: #222222 ! important;
+.brand-text{
+    color: #111;
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+/* Nav links */
+
+.nav-link{
+    color: #100f0f !important;
+    font-weight: 600;
+    margin-left: 0.6rem;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover{
+    color: rgb(81, 79, 79) !important;
+}
+
+/* Search section */
+
+.search-wrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 
+/* search Input */
+
+.search-inp:focus{
+    box-shadow: 0 0 0 3px rgba(255,0,0,0.15);
+}
+
+.search-inp{
+    width: 220px !important;
+    height: 45px !important;
+    border-radius: 16px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
+}
+
+.btn-search{
+    background-color: rgb(237, 13, 13) !important;
+    border: none !important;
+    color: white !important;
+
+    height: 45px;
+    min-width: 85px;
+
+    border-radius: 16px !important;
+    padding: 0.4rem 1rem !important;
+
+    font-size: 0.95rem !important;
+    font-weight: 600;
+}
+
+.btn-search:hover{
+    background-color: rgb(243, 52, 52) !important;
+    color: white !important;
+}
+
+.btn-search i{
+    font-size: 0.9rem;
+    margin-left: 0.25rem;
+}
+
+
+/* category navbar */
+    .nav-link{
+        margin-left: 0.2rem;
+        font-size: 0.95rem;
+    }
+
+    .navbar-collapse{
+        padding-top: 1rem;
+        text-align: center;
+    }
+
+
+/* filters navbar */
+
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+
+
+.filter{
+  text-align: center;
+  margin-right: 1rem;
+  margin-top: 2rem;
+  opacity: 1;
+}
+
+.filter:hover{
+background-color: #f7f2f2;
+  opacity: 1;
+  cursor: pointer;
+}
+
+
+.filter p{
+      font-size: 0.8rem;
+}
+
+.filter-link{
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+
+
+
+/* showing listing price with tax */
+
+.tax-info{
+     display: none;
+}
+
+.tax-toggle{
+      border : 1px solid rgb(57, 56, 56);
+      border-radius: 1rem;
+      /* justify-content: center; */
+      height: 50px;
+      padding:1rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+}
+
+.tax-toggle:hover{
+      cursor: pointer;
+      background: rgb(205, 203, 203);
+      color: rgb(17, 16, 16);
+}
+
+
+/* //selecting budget range */
+
+.budget-select{
+    min-width: 150px;
+    height: 50px;
+    border-radius: 16px !important;
+    padding: 0.75rem 2.5rem 0.75rem 1rem !important;
+    border: 1px solid #d6d6d6 !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+/* hover */
+.budget-select:hover{
+    border-color: #bdbdbd !important;
+}
+
+/* focus */
+.budget-select:focus{
+    box-shadow: 0 0 0 3px rgba(80, 79, 79, 0.12) !important;
+    border-color: rgb(70, 65, 65) !important;
+}
+
+
+
+
+
+/* //listings */
 
 /* Links */
 .listing-link {
@@ -145,100 +328,6 @@ body{
     .listing-price{
         font-size:0.95rem;
     }
-}
-
-
-
-
-/* filters navbar */
-
-#filters {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-    margin-top:1rem;
-    margin-bottom:1rem;
-}
-
-
-.filter{
-  text-align: center;
-  margin-right: 1rem;
-  margin-top: 2rem;
-  opacity: 0.7;
-}
-
-.filter:hover{
-  opacity: 1;
-  cursor: pointer;
-}
-
-
-.filter p{
-      font-size: 0.8rem;
-}
-
-.filter-link{
-  text-decoration: none;
-  color: inherit;
-}
-
-
-
-/* showing listing price with tax */
-
-.tax-info{
-     display: none;
-}
-
-.tax-toggle{
-      border : 1px solid rgb(83, 80, 80);
-      border-radius: 1rem;
-      /* justify-content: center; */
-      height: 50px;
-      padding:1rem;
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-}
-
-
-/* search bar */
-
-.btn-search{
-    background-color: rgb(242, 8, 8) !important;
-    border: none !important;
-    color: rgb(193, 188, 188) !important;
-    border-radius: 30px !important;
-    padding: 0 1rem 0 1rem !important;
-}
-
-.btn-search:hover{
-    background-color: rgb(255, 0, 0) !important;
-    color: rgb(20, 19, 19) !important;
-}
-
-.btn-search i{
-    display: inline;
-    margin-right: 0.5rem;
-    
-}
-
-.search-inp{
-    border-radius: 30px !important;
-    padding: 0.5rem 1rem 0.5rem 1rem !important;
-    font-size:1rem !important;
-}
-
-
-.clear{
-  min-height: 40vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
 }
 
 

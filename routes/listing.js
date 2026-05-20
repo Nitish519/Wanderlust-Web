@@ -28,7 +28,7 @@ router.get("/new",isLoggedIn, listingController.renderNewForm);
 
             router.post("/",
                 isLoggedIn,
-                upload.array("listing[images]", 5),
+                upload.array("listing[images]", 8),
                 wrapAsync(listingController.createListing)
             );
 
@@ -45,7 +45,7 @@ router.get("/new",isLoggedIn, listingController.renderNewForm);
                     isLoggedIn, 
                     isOwner,
                     // upload.array("images", 5),
-                    upload.array("listing[images]", 5),
+                    upload.array("listing[images]", 8),
                     wrapAsync(listingController.updatelisting));
 
 // Delete listing
