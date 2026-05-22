@@ -185,21 +185,23 @@ background-color: #f7f2f2;
     height: 50px;
     border-radius: 16px !important;
     padding: 0.75rem 2.5rem 0.75rem 1rem !important;
-    border: 1px solid #d6d6d6 !important;
+    border: 1px solid #3d3c3c !important;
     font-size: 0.95rem;
     font-weight: 500;
-    background-color: white;
+    background-color: rgb(49, 49, 49);
     box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 /* hover */
 .budget-select:hover{
-    border-color: #bdbdbd !important;
+    background-color: rgb(161, 160, 160);
+    border-color: #130e0e !important;
 }
 
 /* focus */
 .budget-select:focus{
     box-shadow: 0 0 0 3px rgba(80, 79, 79, 0.12) !important;
+    background-color: rgb(161, 160, 160);
     border-color: rgb(70, 65, 65) !important;
 }
 

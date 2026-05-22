@@ -7,8 +7,6 @@ const wrapAsync = require("../utills/wrapAsync.js");
        const {validateReview} = require("../middleware.js");
        const {isLoggedIn, isOwner, isReviewAuthor} = require("../middleware.js");
 
-      const Listing = require("../models/listing.js");
-      const Review = require("../models/review.js");
 
 //controlles reviews.js
 const reviewController = require("../controller/reviews.js");

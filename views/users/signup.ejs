@@ -5,7 +5,7 @@
     <div class="auth-card">
 
         <h2 class="auth-title">
-            Join WanderLust
+           Create your account
         </h2>
 
         <form
@@ -38,6 +38,10 @@
                     Looks Good!
                 </div>
 
+                <div class="invalid-feedback">
+                    Username is required.
+                </div>
+
             </div>
 
             <!-- email -->
@@ -59,6 +63,10 @@
                     required
                 />
 
+                <div class="invalid-feedback">
+                        Please enter a valid email.
+                    </div>
+
             </div>
 
             <!-- password -->
@@ -71,14 +79,19 @@
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="form-control auth-input"
-                    placeholder="Create password"
-                    required
-                />
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control auth-input"
+                            placeholder="Create password"
+                            minlength="6"
+                            required
+                            />
+
+            <div class="invalid-feedback">
+                Password must be at least 6 characters.
+            </div>
 
             </div>
 

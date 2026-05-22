@@ -3,33 +3,33 @@
 <body>
 
   <div id="filters">
-   <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Hotels"  class="filter-link">
+   <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Hotels"  class="filter-link">
       <div class="filter">
         <i class="fa-solid fa-bed"></i>
         <p>Hotels</p>
       </div>
     </a>
-  <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Mountains" class="filter-link">
+  <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Mountains" class="filter-link">
         <div class="filter">
           <i class="fa-solid fa-mountain"></i>
             <p>Mountains</p>
           </div>
     </a>
-      <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Cabins" class="filter-link">
+      <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Cabins" class="filter-link">
           <div class="filter">
           <i class="fa-solid fa-tree"></i>
             <p>Cabins</p>   
           </div>
       </a>
 
-       <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Beaches" class="filter-link">
+       <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Beaches" class="filter-link">
           <div class="filter">
             <i class="fa-solid fa-umbrella-beach"></i>
             <p>Beaches</p>
           </div>
         </a>
 
-        <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Snow" class="filter-link">
+        <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Snow" class="filter-link">
           <div class="filter">
             <i class="fa-solid fa-snowflake"></i>
             <p>Snow</p>
@@ -38,7 +38,7 @@
 
          
 
-        <a href="/listings?search=<%= search %>&priceRange=<%= priceRange %>&category=Lakes" class="filter-link">
+        <a href="/listings?search=<%= search || '' %>&priceRange=<%= priceRange %>&category=Lakes" class="filter-link">
            <div class="filter">
               <i class="fa-solid fa-water"></i>
                 <p>Lakes</p>
@@ -70,7 +70,7 @@
                 <input
                   type="hidden"
                   name="search"
-                  value="<%= search  %>"
+                  value="<%= search %>"
                 >
 
 
@@ -202,7 +202,7 @@
     <% } 
     else { %>
 
-      // !-- fallback image -->
+  //  fallback image
    <div class="carousel-item active">
         <img 
           src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b" 
@@ -216,15 +216,29 @@
   </div>
     
 
+ <% if (listing.images && listing.images.length > 1) { %>
+
   <!-- Previous button -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel-<%= listing._id %>" data-bs-slide="prev">
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#listingCarousel-<%= listing._id %>"
+    data-bs-slide="prev"
+  >
     <span class="carousel-control-prev-icon"></span>
   </button>
 
   <!-- Next button -->
-  <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel-<%= listing._id %>" data-bs-slide="next">
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#listingCarousel-<%= listing._id %>"
+    data-bs-slide="next"
+  >
     <span class="carousel-control-next-icon"></span>
   </button>
+
+<% } %>
 
 </div>
 
@@ -262,7 +276,7 @@
      taxSwitch.addEventListener("click",function(){
        
         let taxInfo = document.getElementsByClassName('tax-info');
-        for(info of taxInfo){
+        for(let info of taxInfo){
 
           if(info.style.display === "inline"){
             info.style.display = "none";

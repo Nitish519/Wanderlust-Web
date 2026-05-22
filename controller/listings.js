@@ -11,10 +11,11 @@ module.exports.index = async (req, res) => {
 
   // SEARCH 
   if (search) {
+    const escapedSearch = search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     query.$or = [
-      { title: { $regex: search, $options: "i" } },
-      { location: { $regex: search, $options: "i" } },
-      { country: { $regex: search, $options: "i" } }
+      { title: { $regex: escapedSearch, $options: "i" } },
+      { location: { $regex: escapedSearch, $options: "i" } },
+      { country: { $regex: escapedSearch, $options: "i" } }
     ];
   }
 
@@ -58,29 +59,55 @@ module.exports.renderNewForm = (req, res) => {
 
 // Show detailed listing with reviews and owner
 
-module.exports.showListing =   async (req, res) => {
-              let {id} = req.params;
-              const listing = await Listing.findById(id).populate({
-              path:"reviews", 
-            populate : {
-                path : "author",
-            },
-            })
-            .populate("owner");
+const mongoose = require("mongoose");
 
-                if(!listing){
-                    req.flash("error", "Listing you requested for does not exist");
-                    res.redirect("/listings");
-                }else{
-                    res.render("listings/show.ejs", {listing});
-                }
-                
-             }
+
+module.exports.showListing = async (req, res) => {
+
+    let { id } = req.params;
+
+    // invalid ObjectId check
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+
+        req.flash(
+            "error",
+            "Listing you requested does not exist"
+        );
+
+        return res.redirect("/listings");
+    }
+
+    const listing = await Listing.findById(id)
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "author",
+            },
+        })
+        .populate("owner");
+
+    // listing not found in DB
+    if (!listing) {
+
+        req.flash(
+            "error",
+            "Listing you requested does not exist"
+        );
+
+        return res.redirect("/listings");
+    }
+
+    res.render(
+        "listings/show.ejs",
+        { listing }
+    );
+};
 
 // Create a new listing with uploaded images
 module.exports.createListing = async (req, res) => {
 
-  if(req.files.length > 5){
+  
+if(req.files && req.files.length > 5){
 
       req.flash(
         "error",
@@ -140,9 +167,22 @@ async (req, res) => {
 
     let listing =
       await Listing.findById(id);
+    if (!listing) {
+        req.flash("error", "Listing not found");
+        return res.redirect("/listings");
+    }
 
     // total image validation
-   const deletedCount =  req.body.deleteImages ? req.body.deleteImages.length : 0;
+
+    const deleteImages =
+          req.body.deleteImages
+          ? Array.isArray(req.body.deleteImages)
+            ? req.body.deleteImages
+            : [req.body.deleteImages]
+          : [];
+
+const deletedCount = deleteImages.length;
+  //  const deletedCount =  req.body.deleteImages ? req.body.deleteImages.length : 0;
 
    const uploadedCount = req.files ? req.files.length : 0;
 
@@ -188,27 +228,29 @@ const totalImages = listing.images.length - deletedCount + uploadedCount;
     }
 
     // delete selected images
-    if(req.body.deleteImages){
+   if(req.body.deleteImages){
 
-        for(let filename
-            of req.body.deleteImages){
+    const deleteImages =
+      Array.isArray(req.body.deleteImages)
+      ? req.body.deleteImages
+      : [req.body.deleteImages];
 
-            await cloudinary
-            .uploader
-            .destroy(filename);
-        }
+    for(let filename of deleteImages){
+        await cloudinary
+        .uploader
+        .destroy(filename);
+    }
 
-        await listing.updateOne({
-            $pull:{
-                images:{
-                    filename:{
-                        $in:
-                        req.body.deleteImages
-                    }
+    await listing.updateOne({
+        $pull:{
+            images:{
+                filename:{
+                    $in: deleteImages
                 }
             }
-        });
-    }
+        }
+    });
+}
 
     req.flash(
       "success",
@@ -230,14 +272,21 @@ module.exports.destroyListing = async (req, res) => {
   const listing = await Listing.findById(id);
 
   //delete images from cloudinary
+
+  if(!listing){
+   req.flash("error","Listing not found");
+   return res.redirect("/listings");
+}
+
+
   if(listing.images && listing.images.length > 0){
     for(let img of listing.images){
       await cloudinary.uploader.destroy(img.filename);
      }
   }
-  //delete listing and reviews associated with that listing
-
+  //delete reviews associated with that listing
   await Listing.findByIdAndDelete(id);
+  
   req.flash("success", "Listing Deleted");
   res.redirect("/listings");
 }

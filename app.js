@@ -1,29 +1,28 @@
-require('dotenv').config();
 
+if(process.env.NODE_ENV !== "production"){
+    require("dotenv").config();
+}
 
-
-console.log(process.env.SECRET);
 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
-
-const Review = require("./models/review.js");
 
 
 //express-sessions
-
-
 const session = require("express-session");
 
 const flash = require("connect-flash");
 
 
-//hashing and salting
-
+//passport authentication
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+
+
+//for method override in edit and delete forms
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 
 //user Schema for sign in/up
@@ -36,20 +35,21 @@ const reviewsRouter = require("./routes/review.js");
 //signup router
 const userRouter  = require("./routes/user.js");
 
-//mogoose connection with db
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
-      .then(() => {
-        console.log("conncetion to DB");
-      })
-      .catch((err)=> {
-        console.log(err);
-      });
+.then(() => {
+    console.log("connected to DB");
+})
+.catch((err) => {
+    console.log(err);
+});
 
 async function main(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
+
 
 
 //ejs setup
@@ -63,22 +63,14 @@ app.set("views", path.join(__dirname, "views"));
 
 
 //error 
-
-const wrapAsync = require("./utills/wrapAsync.js");
 const  ExpressError = require("./utills/ExpressError.js");
 
 
-///validation from server side
-const {listingSchema, reviewSchema} = require("./schema.js");  // note that you didnt write validatelisting but did write validatereview make sure to write both
 
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate);
 
-
-
-
-                const ejsMate = require("ejs-mate");
-                app.engine("ejs", ejsMate);
-
-                app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 
 //showRoute
@@ -88,14 +80,14 @@ app.use(express.urlencoded({extended : true}));
 //session and cookies
 
 const sessionOptions = {
-    secret : "mysupersecretcode",   
+   secret : process.env.SECRET,
     resave : false,                
-    saveUnintialized : true,  
+    saveUninitialized : false,  
 
     cookie : {  
         expires : Date.now() + 7 * 24 * 60 * 60 * 1000, 
         maxAge : 7 * 24 * 60 * 60 * 1000,
-        httponly : true,
+        httpOnly : true,
     }
 };
 
@@ -133,9 +125,8 @@ app.use((req,res,next)=>{
 //flash msgs
 app.use((req,res,next) => {
     res.locals.success = req.flash("success");  
-    res.locals.error = req.flash("error")
+    res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
-    console.log(res.locals.success);
     next();
 });
 
@@ -175,11 +166,11 @@ app.use((err, req, res, next) => {
 
 
 
+const port = process.env.PORT || 8080;
 
-let port = 8080;
-app.listen(8080, () => {
-    console.log(`server is listening on ${port}`)
-})
+app.listen(port, () => {
+    console.log(`server is listening on port ${port}`);
+});
 
 
 

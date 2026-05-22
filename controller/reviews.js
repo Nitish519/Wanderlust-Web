@@ -6,13 +6,17 @@ module.exports.createReview = async (req, res) => {
   let { id } = req.params;
 
   let listing = await Listing.findById(id);
+  if(!listing){
+   req.flash("error", "Listing not found");
+   return res.redirect("/listings");
+}
   let newReview = new Review(req.body.review);
 
   newReview.author = req.user._id;
 
-  //update listing average rating and number of reviews when new review is added
+//update listing average rating and number of reviews when new review is added
 
-let rating = Number(newReview.rating);
+const rating = Number(newReview.rating);
 
 let oldAvg = listing.avgRating || 0;
 let oldCount = listing.numReviews || 0;
@@ -39,6 +43,11 @@ module.exports.deleteReview = async (req, res) => {
 
   let listing = await Listing.findById(id);
   let review = await Review.findById(reviewId);
+
+  if(!listing || !review){
+   req.flash("error", "Review not found");
+   return res.redirect(`/listings/${id}`);
+}
 
   let oldCount = listing.numReviews || 0;
 
@@ -67,7 +76,7 @@ module.exports.deleteReview = async (req, res) => {
   // delete review
   await Review.findByIdAndDelete(reviewId);
 
-  req.flash("success", "review deleted!");
+  req.flash("success", "Review deleted!");
 
   res.redirect(`/listings/${id}`);
 };

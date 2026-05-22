@@ -25,14 +25,18 @@
                     Username
                 </label>
 
-                <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    class="form-control auth-input"
-                    placeholder="Enter username"
-                    required
-                />
+               <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control auth-input"
+                placeholder="Enter username"
+                required
+            />
+
+            <div class="invalid-feedback">
+                Username is required.
+            </div>
 
             </div>
 
@@ -54,6 +58,10 @@
                     placeholder="Enter password"
                     required
                 />
+
+                <div class="invalid-feedback">
+                    Password is required.
+                </div>
 
             </div>
 

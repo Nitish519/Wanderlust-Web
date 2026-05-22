@@ -13,13 +13,12 @@ router.get("/signup", (req, res)=> {
     res.render("users/signup.ejs");
 });
 
-router.post("/signup", wrapAsync(async(req, res) => {
+router.post("/signup", wrapAsync(async(req, res,next) => {
 
     try {
              let {username, email, password} = req.body;
             const newUser = new User({email, username});
             const registerUser = await User.register(newUser, password);
-            console.log(registerUser);
 //signup => loggedin 
             req.login(registerUser, (err) => {
                 if(err) {
@@ -55,7 +54,7 @@ router.post("/login",
         });
 
 
-router.get("/logout", (req, res) => {
+router.get("/logout", (req, res,next) => {
     req.logout((err) => {
         if(err){
             next(err);
