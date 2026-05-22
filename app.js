@@ -28,6 +28,11 @@ app.use(methodOverride("_method"));
 //user Schema for sign in/up
 const User = require("./models/user.js");
 
+
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
+
 //restructuring of listing
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
