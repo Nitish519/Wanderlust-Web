@@ -1,141 +1,188 @@
-# 🌍 Wanderlust
+# 🌍 WanderLust — Full-Stack Travel Listing Platform
 
-A full-stack Airbnb-inspired web application where users can discover, list, and review travel destinations. Built with Node.js, Express, MongoDB, and EJS.
+WanderLust is a **production-style full-stack travel listing web application** where users can discover, create, review, and manage travel accommodation listings.
+
+Built using **Node.js, Express.js, MongoDB Atlas, Passport.js, Cloudinary, and EJS**, the application focuses on secure authentication, authorization, cloud media storage, and scalable backend architecture.
+
+🔗 **Live Demo:** https://wanderlust-msz6.onrender.com  
+🔗 **GitHub Repository:** https://github.com/Nitish519/Wanderlust-Web
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-- 🏠 **Listings** — Create, view, edit, and delete property listings with image uploads
-- ⭐ **Reviews** — Authenticated users can post and delete reviews with star ratings
-- 🔐 **Authentication** — Secure sign up / login via Passport.js with local strategy
-- 🖼️ **Image Uploads** — Cloud storage via Cloudinary with Multer middleware
-- 🛡️ **Authorization** — Only listing owners can edit/delete their listings; only review authors can delete their reviews
-- 💬 **Flash Messages** — User feedback on key actions (login, create, delete, etc.)
-- ✅ **Server-side Validation** — Joi schema validation for listings and reviews
-- 🎨 **Templating** — EJS with ejs-mate for layout inheritance
+### 🏠 Listing Management
+- Create, edit, view, and delete travel listings
+- Multi-image upload support for listings
+- Cloud-based image storage
+
+### 🔐 Authentication & Authorization
+- Secure **sign up / login** using **Passport.js (Local Strategy)**
+- Session-based authentication
+- Password hashing & salting using `passport-local-mongoose`
+- **Role-based authorization**
+  - Only listing owners can edit/delete listings
+  - Only review authors can delete reviews
+
+### ⭐ Review System
+- Add and delete reviews with ratings
+- Dynamic average rating calculation
+- Review ownership validation
+
+### 🔍 Discovery Features
+- Search listings by destination
+- Category-based filtering
+- Budget/price filtering
+
+### ☁️ Cloud Integration
+- **Cloudinary + Multer** for image upload, storage, and deletion
+- **MongoDB Atlas** for cloud-hosted database management
+
+### 🛡️ Reliability & Validation
+- **Joi server-side validation**
+- Reusable middleware architecture
+- Centralized error handling
+- Async route error wrapping
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
+| Category | Technology |
 |---|---|
 | Runtime | Node.js |
-| Framework | Express.js |
-| Database | MongoDB + Mongoose |
-| Templating | EJS + ejs-mate |
-| Authentication | Passport.js (LocalStrategy) |
+| Backend Framework | Express.js |
+| Database | MongoDB Atlas + Mongoose |
+| Authentication | Passport.js + passport-local-mongoose |
+| Templating Engine | EJS + ejs-mate |
 | Image Storage | Cloudinary + Multer |
 | Validation | Joi |
-| Sessions | express-session + connect-flash |
+| Session Management | express-session |
+| User Feedback | connect-flash |
+| Deployment | Render |
+
+---
+
+## 🏗️ Architecture & Design Decisions
+
+### MVC Architecture
+
+The application follows the **Model–View–Controller (MVC)** pattern for maintainable and scalable code organization.
+
+```txt
+Models → Database logic
+Views → EJS frontend templates
+Controllers → Business logic
+Routes → API/request handling
+Middleware → Authorization & validation
+```
+
+### Security Measures
+
+- Session-based authentication
+- Password hashing & salting
+- Authorization middleware for protected actions
+- Server-side request validation
+- Environment variable protection using `.env`
 
 ---
 
 ## 📁 Project Structure
-<img width="1896" height="906" alt="image" src="https://github.com/user-attachments/assets/a8bf86c7-ecaa-4528-b64f-507db57c271c" />
 
-```
+```txt
 wanderlust/
-├── models/
-│   ├── listing.js       # Listing Mongoose model
-│   ├── review.js        # Review Mongoose model
-│   └── user.js          # User model (passport-local-mongoose)
-├── routes/
-│   ├── listing.js       # Listing CRUD routes
-│   ├── review.js        # Review routes
-│   └── user.js          # Auth routes (signup/login/logout)
-├── controllers/         # Route handler logic
-├── views/
-│   ├── listings/        # Listing EJS templates
-│   ├── users/           # Auth EJS templates
-│   └── error.ejs        # Error page
-├── public/              # Static assets (CSS, JS, images)
-├── utils/
-│   ├── wrapAsync.js     # Async error wrapper
-│   └── ExpressError.js  # Custom error class
-├── middleware.js         # isLoggedIn, isOwner, validateReview, etc.
-├── schema.js            # Joi validation schemas
-├── cloudinary.js        # Cloudinary + Multer config
-├── app.js               # Express app entry point
-└── .env                 # Environment variables (not committed)
+│── models/          # Mongoose schemas
+│── controllers/     # Business logic
+│── routes/          # Express routes
+│── views/           # EJS templates
+│── public/          # Static assets
+│── middleware.js    # Auth & validation middleware
+│── schema.js        # Joi schemas
+│── cloudinary.js    # Cloudinary config
+│── app.js           # Application entry point
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Local Setup
 
-### Prerequisites
+### 1. Clone Repository
 
-- [Node.js](https://nodejs.org/) v18+
-- [MongoDB](https://www.mongodb.com/) running locally or a cloud URI
-- A [Cloudinary](https://cloudinary.com/) account
+```bash
+git clone https://github.com/Nitish519/Wanderlust-Web.git
+cd Wanderlust-Web
+```
 
-### Installation
+### 2. Install Dependencies
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/wanderlust.git
-   cd wanderlust
-   ```
+```bash
+npm install
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 3. Configure Environment Variables
 
-3. **Set up environment variables**
+Create a `.env` file in the root directory:
 
-   Create a `.env` file in the root directory:
-   ```env
-   SECRET=your_session_secret
-   CLOUDINARY_CLOUD_NAME=your_cloud_name
-   CLOUDINARY_API_KEY=your_api_key
-   CLOUDINARY_API_SECRET=your_api_secret
-   ```
+```env
+ATLASDB_URL=your_mongodb_connection_string
+SECRET=your_session_secret
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
 
-4. **Start MongoDB** (if running locally)
-   ```bash
-   mongod
-   ```
+### 4. Run the Application
 
-5. **Run the app**
-   ```bash
-   node app.js
-   ```
+```bash
+npm start
+```
 
-6. Open your browser and visit `http://localhost:8080`
+Visit:
 
----
-
-## 🔑 Environment Variables
-
-| Variable | Description |
-|---|---|
-| `SECRET` | Session secret key |
-| `CLOUDINARY_CLOUD_NAME` | Your Cloudinary cloud name |
-| `CLOUDINARY_API_KEY` | Your Cloudinary API key |
-| `CLOUDINARY_API_SECRET` | Your Cloudinary API secret |
-
-> ⚠️ Never commit your `.env` file. It is already included in `.gitignore`.
-
----
-
-## 📸 Screenshots
-
-> _Add screenshots of your app here once deployed_
+```txt
+http://localhost:8080
+```
 
 ---
 
 ## 🌐 Deployment
 
-This project can be deployed on platforms like [Render](https://render.com) or [Railway](https://railway.app). Make sure to:
+The application is deployed using:
 
-- Set all environment variables in your platform's dashboard
-- Use a cloud MongoDB URI (e.g., [MongoDB Atlas](https://www.mongodb.com/atlas))
-- Ensure Cloudinary credentials are correctly configured
+- **Render** → Backend hosting
+- **MongoDB Atlas** → Cloud database
+- **Cloudinary** → Image storage
 
+Production configuration is managed through **environment variables**.
 
 ---
 
-> Built with ❤️ as a full-stack learning project inspired by Airbnb.
+## 📸 Screenshots
+
+_Add screenshots here after deployment_
+
+Suggested screenshots:
+
+- Home Page
+- Listing Details Page
+- Create Listing Page
+- Login / Signup Page
+- Reviews Section
+
+---
+
+## 🔮 Future Improvements
+
+- Interactive map integration
+- Pagination / lazy loading
+- Wishlist / favorites
+- Booking functionality
+- Advanced filters
+
+---
+
+## 👨‍💻 Author
+
+**Nitish Bairwa**
+
+Built as a **full-stack web development project** focusing on backend architecture, authentication, authorization, cloud integration, and scalable application design.
